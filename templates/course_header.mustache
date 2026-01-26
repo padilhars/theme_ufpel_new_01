@@ -17,93 +17,134 @@
 {{!
     @template theme_ufpel/course_header
 
-    Course header with background image, overlay, and course information.
+    Course header with background image, overlay, and structured course information.
+    Layout: Status Badge + Metadata / Title (100%) / Students + Teachers (horizontal) / Progress (centered)
 
     Context variables required for this template:
     * courseimage - URL of the course image
-    * coursename - Name of the course
     * courseid - ID of the course
+    * coursestatus - Object with status (ongoing/finished/upcoming), label, badgeclass, tooltip
+    * semester - Semester information (e.g., "2025/2")
+    * coursecode - Course code (e.g., "11260030")
+    * courseclass - Class/turma (e.g., "M2")
+    * coursetitle - Clean course title (e.g., "LABORATÓRIO DE EDUCAÇÃO MATEMÁTICA II")
     * teachers - Array of teacher objects with id, fullname, profileurl, avatar
     * studentcount - Number of enrolled students
-    * startdate - Formatted start date
-    * enddate - Formatted end date
     * hasprogress - Boolean indicating if user is a student
     * progress - Progress object with completed, total, percentage (if hasprogress)
 
     Example context (json):
     {
         "courseimage": "http://example.com/course/image.jpg",
-        "coursename": "Introduction to Programming",
         "courseid": "42",
-        "teachers": [
-            {
-                "id": "123",
-                "fullname": "John Doe",
-                "profileurl": "http://example.com/user/profile.php?id=123",
-                "avatar": "<img src='...' />"
-            }
-        ],
+        "coursestatus": {
+            "status": "ongoing",
+            "label": "Em andamento",
+            "badgeclass": "badge-success",
+            "tooltip": "Início: 01/01/2025 - Término: 30/06/2025"
+        },
+        "semester": "2025/2",
+        "coursecode": "11260030",
+        "courseclass": "M2",
+        "coursetitle": "LABORATÓRIO DE EDUCAÇÃO MATEMÁTICA II",
+        "teachers": [...],
         "studentcount": 45,
-        "startdate": "01/01/2025",
-        "enddate": "30/06/2025",
         "hasprogress": true,
-        "progress": {
-            "enabled": true,
-            "completed": 15,
-            "total": 30,
-            "percentage": 50
-        }
+        "progress": {...}
     }
 }}
 <div class="ufpel-course-header" style="background-image: url('{{courseimage}}');" data-course-id="{{courseid}}">
     <div class="ufpel-course-header-overlay">
         <div class="ufpel-course-header-content">
-            <h1 class="ufpel-course-title">{{coursename}}</h1>
+            {{! Status Badge and Course Metadata }}
+            <div class="ufpel-course-meta-top">
+                <span class="ufpel-status-badge {{coursestatus.badgeclass}}" 
+                      title="{{coursestatus.tooltip}}" 
+                      data-toggle="tooltip" 
+                      data-placement="top">
+                    {{coursestatus.label}}
+                </span>
+                <small class="ufpel-course-metadata">
+                    {{#semester}}
+                    <span class="ufpel-meta-item" 
+                          title="{{#str}}semester, theme_ufpel{{/str}}" 
+                          data-toggle="tooltip" 
+                          data-placement="top">
+                        {{semester}}
+                    </span>
+                    {{/semester}}
+                    {{#coursecode}}
+                    <span class="ufpel-meta-separator">•</span>
+                    <span class="ufpel-meta-item" 
+                          title="{{#str}}coursecode, theme_ufpel{{/str}}" 
+                          data-toggle="tooltip" 
+                          data-placement="top">
+                        {{coursecode}}
+                    </span>
+                    {{/coursecode}}
+                    {{#courseclass}}
+                    <span class="ufpel-meta-separator">•</span>
+                    <span class="ufpel-meta-item" 
+                          title="{{#str}}courseclass, theme_ufpel{{/str}}" 
+                          data-toggle="tooltip" 
+                          data-placement="top">
+                        {{courseclass}}
+                    </span>
+                    {{/courseclass}}
+                </small>
+            </div>
             
-            <div class="ufpel-course-meta">
-                {{#teachers}}
-                <div class="ufpel-course-teachers">
-                    {{#teachers}}
-                    <div class="ufpel-teacher-item">
-                        <a href="{{profileurl}}" class="ufpel-teacher-link">
-                            <div class="ufpel-teacher-avatar">{{{avatar}}}</div>
-                            <span class="ufpel-teacher-name">{{fullname}}</span>
-                        </a>
-                    </div>
-                    {{/teachers}}
-                </div>
-                {{/teachers}}
-                
-                <div class="ufpel-course-info">
+            {{! Course Title - 100% width }}
+            <h1 class="ufpel-course-title">{{coursetitle}}</h1>
+            
+            {{! Bottom row: Info (left 50%) and Progress (right 50%) }}
+            <div class="ufpel-course-bottom-row">
+                {{! Left column: Student Count and Teachers (50%) }}
+                <div class="ufpel-course-left-column">
                     {{#studentcount}}
-                    <div class="ufpel-info-item">
+                    <div class="ufpel-info-item" 
+                         title="{{#str}}participants, theme_ufpel{{/str}}" 
+                         data-toggle="tooltip" 
+                         data-placement="top">
                         <i class="fa fa-users" aria-hidden="true"></i>
-                        <span>{{studentcount}} {{#str}}participants{{/str}}</span>
+                        <span>{{studentcount}}</span>
                     </div>
                     {{/studentcount}}
                     
-                    {{#startdate}}
-                    <div class="ufpel-info-item">
-                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                        <span>{{startdate}}</span>
-                        {{#enddate}}
-                        <span class="ufpel-date-separator">-</span>
-                        <span>{{enddate}}</span>
-                        {{/enddate}}
+                    {{#teachers}}
+                    <div class="ufpel-course-teachers">
+                        {{#teachers}}
+                        <div class="ufpel-teacher-item">
+                            <a href="{{profileurl}}" class="ufpel-teacher-link">
+                                <div class="ufpel-teacher-avatar">{{{avatar}}}</div>
+                                <span class="ufpel-teacher-name">{{fullname}}</span>
+                            </a>
+                        </div>
+                        {{/teachers}}
                     </div>
-                    {{/startdate}}
+                    {{/teachers}}
                 </div>
                 
+                {{! Right column: Progress Bar (50%) }}
                 {{#hasprogress}}
                 {{#progress.enabled}}
-                <div class="ufpel-course-progress">
-                    <div class="ufpel-progress-label">
-                        <span class="ufpel-progress-text">{{#str}}progress, core_completion{{/str}}</span>
-                        <span class="ufpel-progress-stats">{{progress.completed}}/{{progress.total}} ({{progress.percentage}}%)</span>
-                    </div>
-                    <div class="ufpel-progress-bar-container">
-                        <div class="ufpel-progress-bar" style="width: {{progress.percentage}}%;" role="progressbar" aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100">
-                            <span class="sr-only">{{progress.percentage}}% {{#str}}complete{{/str}}</span>
+                <div class="ufpel-course-right-column">
+                    <div class="ufpel-course-progress">
+                        <div class="ufpel-progress-container">
+                            <div class="ufpel-progress-bar-container" 
+                                 title="{{#str}}progress, core_completion{{/str}}" 
+                                 data-toggle="tooltip" 
+                                 data-placement="top">
+                                <div class="ufpel-progress-bar" style="width: {{progress.percentage}}%;" role="progressbar" aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100">
+                                    <span class="sr-only">{{progress.percentage}}% {{#str}}complete, theme_ufpel{{/str}}</span>
+                                </div>
+                            </div>
+                            <span class="ufpel-progress-stats" 
+                                  title="{{#str}}taskscompleted, theme_ufpel{{/str}}" 
+                                  data-toggle="tooltip" 
+                                  data-placement="top">
+                                {{progress.completed}}/{{progress.total}} ({{progress.percentage}}%)
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -113,3 +154,12 @@
         </div>
     </div>
 </div>
+
+{{! Initialize Bootstrap tooltips }}
+{{#js}}
+require(['jquery'], function($) {
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+});
+{{/js}}

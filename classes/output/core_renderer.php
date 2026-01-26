@@ -26,6 +26,8 @@ namespace theme_ufpel\output;
 
 use moodle_url;
 use context_course;
+use completion_info;
+use stdClass;
 
 /**
  * Renderers to align Moodle's HTML with theme_ufpel.
@@ -44,46 +46,152 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $COURSE, $PAGE, $USER;
 
         // Only render custom header in course context.
-        if ($PAGE->context->contextlevel !== CONTEXT_COURSE || $COURSE->id == SITEID) {
+        if ($PAGE->context->contextlevel !== CONTEXT_COURSE || $COURSE->id === SITEID) {
             return parent::course_header();
         }
 
-        // Get course image URL.
-        $courseimage = $this->get_course_image_url($COURSE);
-        
         // Get course context.
         $context = context_course::instance($COURSE->id);
         
+        // Parse course name into components.
+        $courseinfo = $this->parse_course_name($COURSE->fullname);
+        
         // Build the custom header data.
         $data = [
-            'courseimage' => $courseimage->out(false),
-            'coursename' => format_string($COURSE->fullname, true, ['context' => $context]),
+            'courseimage' => $this->get_course_image_url($COURSE)->out(false),
             'courseid' => $COURSE->id,
+            'coursestatus' => $this->get_course_status($COURSE),
+            'semester' => $courseinfo['semester'],
+            'coursecode' => $courseinfo['code'],
+            'courseclass' => $courseinfo['class'],
+            'coursetitle' => $courseinfo['title'],
             'teachers' => $this->get_course_teachers($COURSE->id, $context),
             'studentcount' => $this->get_student_count($COURSE->id, $context),
-            'startdate' => $this->format_course_date($COURSE->startdate),
-            'enddate' => $this->format_course_date($COURSE->enddate),
             'hasprogress' => $this->is_student($context, $USER->id),
         ];
         
         // Add progress data if user is a student.
         if ($data['hasprogress']) {
-            $progress = $this->get_course_progress($COURSE, $USER->id);
-            $data['progress'] = $progress;
+            $data['progress'] = $this->get_course_progress($COURSE, $USER->id);
         }
 
         return $this->render_from_template('theme_ufpel/course_header', $data);
     }
 
     /**
+     * Parse course name into structured components.
+     *
+     * Expected format: "SEMESTER - CODE - CLASS - TITLE"
+     * Example: "2025/2 - 11260030 - M2 - LABORATÓRIO DE EDUCAÇÃO MATEMÁTICA II"
+     *
+     * @param string $fullname Full course name.
+     * @return array Associative array with semester, code, class, and title.
+     */
+    protected function parse_course_name(string $fullname): array {
+        // Default values.
+        $result = [
+            'semester' => '',
+            'code' => '',
+            'class' => '',
+            'title' => $fullname, // Fallback to full name if parsing fails.
+        ];
+
+        // Split by hyphen and trim each part.
+        $parts = array_map('trim', explode('-', $fullname));
+
+        // Check if we have at least 4 parts (semester - code - class - title).
+        if (count($parts) >= 4) {
+            $result['semester'] = $parts[0];
+            $result['code'] = $parts[1];
+            $result['class'] = $parts[2];
+            // Join remaining parts in case title contains hyphens.
+            $result['title'] = implode(' - ', array_slice($parts, 3));
+        } else if (count($parts) === 3) {
+            // If only 3 parts, assume no class identifier.
+            $result['semester'] = $parts[0];
+            $result['code'] = $parts[1];
+            $result['title'] = $parts[2];
+        } else if (count($parts) === 2) {
+            // If only 2 parts, assume semester and title.
+            $result['semester'] = $parts[0];
+            $result['title'] = $parts[1];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Determine course status based on current date and course dates.
+     *
+     * @param stdClass $course Course object.
+     * @return array Status information with status, label, badgeclass, and tooltip.
+     */
+    protected function get_course_status(stdClass $course): array {
+        $now = time();
+        
+        // Check if course has started.
+        $hasStarted = empty($course->startdate) || $course->startdate <= $now;
+        
+        // Check if course has ended.
+        $hasEnded = !empty($course->enddate) && $course->enddate < $now;
+
+        // Build tooltip with dates.
+        $tooltip = $this->build_course_dates_tooltip($course->startdate, $course->enddate);
+
+        if ($hasEnded) {
+            return [
+                'status' => 'finished',
+                'label' => get_string('coursestatus_finished', 'theme_ufpel'),
+                'badgeclass' => 'badge-danger',
+                'tooltip' => $tooltip,
+            ];
+        } else if ($hasStarted) {
+            return [
+                'status' => 'ongoing',
+                'label' => get_string('coursestatus_ongoing', 'theme_ufpel'),
+                'badgeclass' => 'badge-success',
+                'tooltip' => $tooltip,
+            ];
+        } else {
+            return [
+                'status' => 'upcoming',
+                'label' => get_string('coursestatus_upcoming', 'theme_ufpel'),
+                'badgeclass' => 'badge-warning',
+                'tooltip' => $tooltip,
+            ];
+        }
+    }
+
+    /**
+     * Build tooltip text with course start and end dates.
+     *
+     * @param int $startdate Course start date timestamp.
+     * @param int $enddate Course end date timestamp.
+     * @return string Formatted tooltip text.
+     */
+    protected function build_course_dates_tooltip(int $startdate, int $enddate): string {
+        $parts = [];
+
+        if (!empty($startdate)) {
+            $parts[] = get_string('coursestart', 'theme_ufpel') . ': ' . 
+                      userdate($startdate, get_string('strftimedateshort', 'core_langconfig'));
+        }
+
+        if (!empty($enddate)) {
+            $parts[] = get_string('courseend', 'theme_ufpel') . ': ' . 
+                      userdate($enddate, get_string('strftimedateshort', 'core_langconfig'));
+        }
+
+        return !empty($parts) ? implode(' - ', $parts) : '';
+    }
+
+    /**
      * Get the course image URL or a default placeholder.
      *
-     * @param \stdClass $course Course object.
+     * @param stdClass $course Course object.
      * @return moodle_url Course image URL.
      */
-    protected function get_course_image_url(\stdClass $course): moodle_url {
-        global $CFG;
-
+    protected function get_course_image_url(stdClass $course): moodle_url {
         // Get course context.
         $coursecontext = context_course::instance($course->id);
         
@@ -141,7 +249,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $role->id,
                 $context,
                 false,
-                'u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt, u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename',
+                'u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt, 
+                 u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename',
                 'u.lastname ASC, u.firstname ASC',
                 true,
                 '',
@@ -154,7 +263,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $teachers[$teacher->id] = [
                         'id' => $teacher->id,
                         'fullname' => fullname($teacher),
-                        'profileurl' => new moodle_url('/user/profile.php', ['id' => $teacher->id]),
+                        'profileurl' => (new moodle_url('/user/profile.php', ['id' => $teacher->id]))->out(false),
                         'avatar' => $this->user_picture($teacher, ['size' => 35, 'link' => false]),
                     ];
                 }
@@ -188,8 +297,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $studentrole->id,
             $context,
             false,
-            'u.id, u.lastname, u.firstname',
-            'u.lastname ASC',
+            'u.id',
+            'u.id',
             true
         );
 
@@ -231,12 +340,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
     /**
      * Get course progress for a student.
      *
-     * @param \stdClass $course Course object.
+     * @param stdClass $course Course object.
      * @param int $userid User ID.
-     * @return array Progress data with completed, total, and percentage.
+     * @return array Progress data with enabled, completed, total, and percentage.
      */
-    protected function get_course_progress(\stdClass $course, int $userid): array {
-        $completion = new \completion_info($course);
+    protected function get_course_progress(stdClass $course, int $userid): array {
+        $completion = new completion_info($course);
 
         if (!$completion->is_enabled()) {
             return [
@@ -255,20 +364,22 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         foreach ($modinfo->get_cms() as $cm) {
             // Skip if not tracked.
-            if ($cm->completion == COMPLETION_TRACKING_NONE) {
+            if ($cm->completion === COMPLETION_TRACKING_NONE) {
                 continue;
             }
 
             $total++;
 
             $cmcompletion = $completion->get_data($cm, true, $userid);
-            if ($cmcompletion->completionstate == COMPLETION_COMPLETE ||
-                $cmcompletion->completionstate == COMPLETION_COMPLETE_PASS) {
+            if (
+                $cmcompletion->completionstate === COMPLETION_COMPLETE ||
+                $cmcompletion->completionstate === COMPLETION_COMPLETE_PASS
+            ) {
                 $completed++;
             }
         }
 
-        $percentage = $total > 0 ? round(($completed / $total) * 100) : 0;
+        $percentage = $total > 0 ? (int) round(($completed / $total) * 100) : 0;
 
         return [
             'enabled' => true,
@@ -289,7 +400,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $html = parent::full_header();
 
         // Add custom course header for course pages.
-        if ($PAGE->context->contextlevel === CONTEXT_COURSE && $COURSE->id != SITEID) {
+        if ($PAGE->context->contextlevel === CONTEXT_COURSE && $COURSE->id !== SITEID) {
             $html = $this->course_header() . $html;
         }
 

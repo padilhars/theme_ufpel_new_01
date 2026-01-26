@@ -38,6 +38,17 @@ $ufpel-header-height: 300px;
 $ufpel-header-height-mobile: 200px;
 $ufpel-overlay-start: rgba(0, 0, 0, 0.3);
 $ufpel-overlay-end: rgba(0, 0, 0, 0.6);
+$ufpel-progress-bg: rgba(255, 255, 255, 0.2);
+$ufpel-progress-border: rgba(255, 255, 255, 0.3);
+
+// Badge colors
+$badge-success-bg: #10b981;
+$badge-danger-bg: #ef4444;
+$badge-warning-bg: #f59e0b;
+
+// ============================================================================
+// Content Width Adjustments
+// ============================================================================
 
 // Aumenta a largura do conteúdo principal em telas grandes
 #page.drawers .main-inner {
@@ -116,7 +127,7 @@ body.limitedwidth #page.drawers .main-inner {
     
     @media (min-width: 768px) {
         height: $ufpel-header-height;
-        width: calc(100% - 30px;);
+        width: calc(100% - 30px);
         margin-left: 15px;
         margin-right: 15px;
     }
@@ -164,33 +175,162 @@ body.limitedwidth #page.drawers .main-inner {
         }
     }
     
-    // Course title styling
+    // Course metadata top section (badge + semester/code/class)
+    .ufpel-course-meta-top {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        flex-wrap: wrap;
+        
+        @media (min-width: 768px) {
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+    }
+    
+    // Status badge
+    .ufpel-status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 1;
+        color: #ffffff;
+        text-transform: uppercase;
+        border-radius: 0.375rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.025em;
+        cursor: help;
+        
+        @media (min-width: 768px) {
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+        }
+        
+        &.badge-success {
+            background-color: $badge-success-bg;
+        }
+        
+        &.badge-danger {
+            background-color: $badge-danger-bg;
+        }
+        
+        &.badge-warning {
+            background-color: $badge-warning-bg;
+            color: #000000;
+        }
+    }
+    
+    // Course metadata (semester, code, class)
+    .ufpel-course-metadata {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #ffffff;
+        font-size: 0.875rem;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        
+        @media (min-width: 768px) {
+            font-size: 0.9rem;
+        }
+    }
+    
+    .ufpel-meta-item {
+        white-space: nowrap;
+        cursor: help;
+    }
+    
+    .ufpel-meta-separator {
+        opacity: 0.6;
+        font-weight: 400;
+    }
+    
+    // Course title styling - 100% width
     .ufpel-course-title {
+        width: 100%;
         color: #ffffff;
         font-size: 1.5rem;
         font-weight: 700;
         margin: 0 0 1rem 0;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         line-height: 1.2;
+        text-transform: capitalize;
         
         @media (min-width: 768px) {
             font-size: 2.25rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem;
         }
         
         @media (min-width: 992px) {
-            font-size: 2.75rem;
+            font-size: 2.50rem;
         }
     }
     
-    // Meta information container
-    .ufpel-course-meta {
+    // Bottom row: Contains left (info) and right (progress) columns
+    .ufpel-course-bottom-row {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+        width: 100%;
         
         @media (min-width: 768px) {
-            gap: 1.25rem;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: center;
+        }
+    }
+    
+    // Left column: Student count and teachers - 50% on desktop
+    .ufpel-course-left-column {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        
+        @media (min-width: 768px) {
+            flex: 2;
+            min-width: 0; // Prevents flex item overflow
+            gap: 2rem;
+        }
+    }
+    
+    // Right column: Progress bar - 50% on desktop
+    .ufpel-course-right-column {
+        display: flex;
+        flex-direction: column;
+        
+        @media (min-width: 768px) {
+            flex: 1;
+            min-width: 0; // Prevents flex item overflow
+            justify-content: center;
+        }
+    }
+    
+    .ufpel-info-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #ffffff;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        cursor: help;
+        
+        @media (min-width: 768px) {
+            font-size: 1rem;
+        }
+        
+        i {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            
+            @media (min-width: 768px) {
+                font-size: 1.2rem;
+            }
         }
     }
     
@@ -230,9 +370,12 @@ body.limitedwidth #page.drawers .main-inner {
         display: flex;
         align-items: center;
         
+        .userinitials {
+            border-radius: 5px;
+        }
         img {
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
+            border: 2px solid $ufpel-progress-border;
+            border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
     }
@@ -247,93 +390,40 @@ body.limitedwidth #page.drawers .main-inner {
         }
     }
     
-    // Course info (participants and dates)
-    .ufpel-course-info {
+    // Progress bar section
+    .ufpel-course-progress {
+        width: 100%;
+        padding: 1rem;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        
+        @media (min-width: 768px) {
+            padding: 0;
+        }
+    }
+    
+    .ufpel-progress-container {
         display: flex;
-        flex-wrap: wrap;
+        align-items: center;
         gap: 1rem;
         
         @media (min-width: 768px) {
-            gap: 1.5rem;
+            gap: 1.25rem;
         }
-    }
-    
-    .ufpel-info-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: #ffffff;
-        font-size: 0.85rem;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        
-        @media (min-width: 768px) {
-            font-size: 0.95rem;
-        }
-        
-        i {
-            opacity: 0.9;
-            font-size: 1rem;
-            
-            @media (min-width: 768px) {
-                font-size: 1.1rem;
-            }
-        }
-    }
-    
-    .ufpel-date-separator {
-        margin: 0 0.25rem;
-    }
-    
-    // Progress bar section
-    .ufpel-course-progress {
-        margin-top: 0.5rem;
-        max-width: 500px;
-        /* From https://css.glass */
-background: rgba(255, 255, 255, 0.2);
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
-border: 1px solid rgba(255, 255, 255, 0.3);
-        
-        @media (min-width: 768px) {
-            margin-top: 0.75rem;
-        }
-    }
-    
-    .ufpel-progress-label {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.5rem;
-        color: #ffffff;
-        font-size: 0.85rem;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-        
-        @media (min-width: 768px) {
-            font-size: 0.9rem;
-        }
-    }
-    
-    .ufpel-progress-text {
-        font-weight: 600;
-    }
-    
-    .ufpel-progress-stats {
-        font-weight: 500;
-        opacity: 0.95;
     }
     
     .ufpel-progress-bar-container {
-        height: 8px;
+        flex: 1;
+        height: 10px;
         background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
+        border-radius: 5px;
         overflow: hidden;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        cursor: help;
         
         @media (min-width: 768px) {
-            height: 10px;
-            border-radius: 5px;
+            height: 12px;
+            border-radius: 6px;
         }
     }
     
@@ -342,10 +432,29 @@ border: 1px solid rgba(255, 255, 255, 0.3);
         background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
         transition: width 0.3s ease;
         box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+        border-radius: 5px;
+        
+        @media (min-width: 768px) {
+            border-radius: 6px;
+        }
+    }
+    
+    .ufpel-progress-stats {
+        flex-shrink: 0;
+        color: #ffffff;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        white-space: nowrap;
+        cursor: help;
+        
+        @media (min-width: 768px) {
+            font-size: 0.9375rem;
+        }
     }
 }
 
 // Hide default page header when custom course header is present
 .ufpel-course-header ~ #page-header {
-        display: none;
+    display: none;
 }

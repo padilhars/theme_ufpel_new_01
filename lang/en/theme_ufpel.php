@@ -36,5 +36,22 @@ $string['nosettings'] = 'This theme has no settings available at the moment. Set
 $string['privacy:metadata'] = 'The UFPel theme does not store any personal data.';
 
 // Course header.
-$string['participants'] = 'participants';
+$string['participants'] = 'Participants';
 $string['complete'] = 'complete';
+
+// Course status badges.
+$string['coursestatus_ongoing'] = 'Ongoing';
+$string['coursestatus_finished'] = 'Finished';
+$string['coursestatus_upcoming'] = 'Upcoming';
+
+// Course metadata tooltips.
+$string['semester'] = 'Semester';
+$string['coursecode'] = 'Course Code';
+$string['courseclass'] = 'Class';
+
+// Course dates for tooltips.
+$string['coursestart'] = 'Start';
+$string['courseend'] = 'End';
+
+// Progress tooltips.
+$string['taskscompleted'] = 'Tasks Completed';
