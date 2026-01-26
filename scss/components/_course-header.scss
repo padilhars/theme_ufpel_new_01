@@ -1,0 +1,378 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * UFPel theme course header styles.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// ============================================================================
+// Course Header Container
+// ============================================================================
+
+.ufpel-course-header {
+    position: relative;
+    width: 100%;
+    height: $ufpel-header-height-mobile;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    margin-bottom: $ufpel-header-margin-bottom;
+    overflow: hidden;
+    border-radius: $ufpel-header-border-radius;
+    
+    @include tablet-up {
+        height: $ufpel-header-height;
+        width: calc(100% - #{$ufpel-header-margin-horizontal * 2});
+        margin-left: $ufpel-header-margin-horizontal;
+        margin-right: $ufpel-header-margin-horizontal;
+    }
+}
+
+// ============================================================================
+// Header Overlay
+// ============================================================================
+
+.ufpel-course-header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    @include gradient-overlay;
+    display: flex;
+    align-items: flex-end;
+    padding: $ufpel-header-padding-mobile;
+    
+    @include tablet-up {
+        padding: $ufpel-header-padding-desktop;
+    }
+}
+
+// ============================================================================
+// Header Content Container
+// ============================================================================
+
+.ufpel-course-header-content {
+    width: 100%;
+    margin: 0 auto;
+    @include content-max-width;
+}
+
+// ============================================================================
+// Course Status and Metadata Section
+// ============================================================================
+
+.ufpel-course-meta-top {
+    @include flex-gap(0.75rem);
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    
+    @include tablet-up {
+        gap: $ufpel-gap-md;
+        margin-bottom: $ufpel-gap-sm;
+    }
+}
+
+// ============================================================================
+// Status Badge
+// ============================================================================
+
+.ufpel-status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: $badge-padding-mobile;
+    font-size: $badge-font-size-mobile;
+    font-weight: 500;
+    line-height: 1;
+    color: $color-white;
+    text-transform: uppercase;
+    border-radius: $badge-border-radius;
+    @include box-shadow;
+    letter-spacing: 0.025em;
+    cursor: help;
+    
+    @include tablet-up {
+        padding: $badge-padding-desktop;
+        font-size: $badge-font-size-desktop;
+    }
+    
+    &.badge-success {
+        background-color: $badge-success-bg;
+    }
+    
+    &.badge-danger {
+        background-color: $badge-danger-bg;
+    }
+    
+    &.badge-warning {
+        background-color: $badge-warning-bg;
+        color: $color-black;
+    }
+}
+
+// ============================================================================
+// Course Metadata
+// ============================================================================
+
+.ufpel-course-metadata {
+    @include flex-gap($ufpel-gap-sm);
+    align-items: center;
+    @include header-text-white;
+    font-size: $ufpel-meta-font-size-mobile;
+    
+    @include tablet-up {
+        font-size: $ufpel-meta-font-size-desktop;
+    }
+}
+
+.ufpel-meta-item {
+    white-space: nowrap;
+    cursor: help;
+}
+
+.ufpel-meta-separator {
+    opacity: 0.6;
+    font-weight: 400;
+}
+
+// ============================================================================
+// Course Title
+// ============================================================================
+
+.ufpel-course-title {
+    width: 100%;
+    @include header-text-white;
+    @include text-shadow('strong');
+    font-size: $ufpel-title-font-size-mobile;
+    font-weight: $ufpel-title-font-weight;
+    margin: 0 0 $ufpel-gap-md 0;
+    line-height: $ufpel-title-line-height;
+    text-transform: capitalize;
+    
+    @include tablet-up {
+        font-size: $ufpel-title-font-size-tablet;
+        margin-bottom: $ufpel-gap-sm;
+    }
+    
+    @include desktop-up {
+        font-size: $ufpel-title-font-size-desktop;
+    }
+}
+
+// ============================================================================
+// Bottom Row Layout
+// ============================================================================
+
+.ufpel-course-bottom-row {
+    display: flex;
+    flex-direction: column;
+    gap: $ufpel-gap-lg;
+    width: 100%;
+    
+    @include tablet-up {
+        flex-direction: row;
+        gap: $ufpel-gap-xl;
+        align-items: center;
+    }
+}
+
+// ============================================================================
+// Left Column (Info Section)
+// ============================================================================
+
+.ufpel-course-left-column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $ufpel-gap-lg;
+    flex-wrap: wrap;
+    
+    @include tablet-up {
+        flex: 2;
+        @include flex-no-overflow;
+        gap: $ufpel-gap-xl;
+    }
+}
+
+// ============================================================================
+// Right Column (Progress Section)
+// ============================================================================
+
+.ufpel-course-right-column {
+    display: flex;
+    flex-direction: column;
+    
+    @include tablet-up {
+        flex: 1;
+        @include flex-no-overflow;
+        justify-content: center;
+    }
+}
+
+// ============================================================================
+// Info Items (Student Count, etc.)
+// ============================================================================
+
+.ufpel-info-item {
+    @include flex-gap($ufpel-gap-sm);
+    align-items: center;
+    @include header-text-white;
+    font-size: $ufpel-info-font-size-mobile;
+    font-weight: 500;
+    cursor: help;
+    
+    @include tablet-up {
+        font-size: $ufpel-info-font-size-desktop;
+    }
+    
+    i {
+        opacity: 0.9;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        
+        @include tablet-up {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+// ============================================================================
+// Teachers Section
+// ============================================================================
+
+.ufpel-course-teachers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $ufpel-gap-md;
+    
+    @include tablet-up {
+        gap: $ufpel-gap-lg;
+    }
+}
+
+.ufpel-teacher-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+.ufpel-teacher-link {
+    @include flex-gap($ufpel-gap-sm);
+    align-items: center;
+    color: $color-white;
+    text-decoration: none;
+    @include transition-opacity;
+    @include link-hover;
+}
+
+.ufpel-teacher-avatar {
+    display: flex;
+    align-items: center;
+    
+    .userinitials {
+        border-radius: $ufpel-avatar-border-radius;
+    }
+    
+    img {
+        border: $ufpel-avatar-border-width solid $ufpel-progress-border;
+        border-radius: $ufpel-avatar-border-radius;
+        @include box-shadow;
+    }
+}
+
+.ufpel-teacher-name {
+    font-size: $ufpel-teacher-font-size-mobile;
+    font-weight: 600;
+    @include text-shadow;
+    
+    @include tablet-up {
+        font-size: $ufpel-teacher-font-size-desktop;
+    }
+}
+
+// ============================================================================
+// Progress Bar Section
+// ============================================================================
+
+.ufpel-course-progress {
+    width: 100%;
+    padding: $ufpel-gap-md;
+    @include backdrop-filter;
+    
+    @include tablet-up {
+        padding: 0;
+    }
+}
+
+.ufpel-progress-container {
+    @include flex-gap($ufpel-gap-md);
+    align-items: center;
+    
+    @include tablet-up {
+        gap: 1.25rem;
+    }
+}
+
+.ufpel-progress-bar-container {
+    flex: 1;
+    height: $ufpel-progress-height-mobile;
+    background-color: $ufpel-progress-bg;
+    border-radius: $ufpel-progress-border-radius-mobile;
+    overflow: hidden;
+    @include box-shadow('subtle');
+    cursor: help;
+    
+    @include tablet-up {
+        height: $ufpel-progress-height-desktop;
+        border-radius: $ufpel-progress-border-radius-desktop;
+    }
+}
+
+.ufpel-progress-bar {
+    height: 100%;
+    @include progress-gradient;
+    @include transition-width;
+    box-shadow: 0 0 8px $ufpel-progress-shadow;
+    border-radius: $ufpel-progress-border-radius-mobile;
+    
+    @include tablet-up {
+        border-radius: $ufpel-progress-border-radius-desktop;
+    }
+}
+
+.ufpel-progress-stats {
+    flex-shrink: 0;
+    @include header-text-white;
+    font-size: $ufpel-progress-font-size-mobile;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: help;
+    
+    @include tablet-up {
+        font-size: $ufpel-progress-font-size-desktop;
+    }
+}
+
+// ============================================================================
+// Hide Default Page Header
+// ============================================================================
+
+.ufpel-course-header ~ #page-header {
+    display: none;
+}

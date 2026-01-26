@@ -14,7 +14,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * UFPel theme default preset.
+ * UFPel theme layout styles.
  *
  * @package    theme_ufpel
  * @copyright  2025 Universidade Federal de Pelotas
@@ -22,23 +22,27 @@
  */
 
 // ============================================================================
-// Import Boost SCSS (includes Bootstrap and Moodle core styles)
+// Content Width Adjustments
 // ============================================================================
 
-@import "../../boost/scss/fontawesome";
-@import "../../boost/scss/bootstrap";
-@import "../../boost/scss/moodle";
+/**
+ * Main content area width adjustments for larger screens
+ */
+#page.drawers .main-inner {
+    @include content-max-width;
+}
 
-// ============================================================================
-// UFPel Theme Variables and Mixins
-// ============================================================================
+/**
+ * Standard page layout content width
+ */
+.pagelayout-standard #page.drawers .main-inner,
+body.limitedwidth #page.drawers .main-inner {
+    @include content-max-width;
+}
 
-@import "components/variables";
-@import "components/mixins";
-
-// ============================================================================
-// UFPel Theme Components
-// ============================================================================
-
-@import "components/layout";
-@import "components/course-header";
+/**
+ * Page header content width matching main content
+ */
+#page-header {
+    @include content-centered;
+}

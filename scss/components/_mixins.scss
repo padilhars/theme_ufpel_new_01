@@ -1,0 +1,249 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * UFPel theme mixins.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// ============================================================================
+// Responsive Mixins
+// ============================================================================
+
+/**
+ * Media query for tablet and up (min-width: 768px)
+ */
+@mixin tablet-up {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
+/**
+ * Media query for desktop and up (min-width: 992px)
+ */
+@mixin desktop-up {
+    @media (min-width: 992px) {
+        @content;
+    }
+}
+
+/**
+ * Media query for large desktop and up (min-width: 1200px)
+ */
+@mixin large-desktop-up {
+    @media (min-width: 1200px) {
+        @content;
+    }
+}
+
+/**
+ * Media query for extra large desktop and up (min-width: 1400px)
+ */
+@mixin xl-desktop-up {
+    @media (min-width: 1400px) {
+        @content;
+    }
+}
+
+// ============================================================================
+// Content Width Mixins
+// ============================================================================
+
+/**
+ * Apply responsive max-width for content containers
+ */
+@mixin content-max-width {
+    @include tablet-up {
+        max-width: $content-width-sm;
+    }
+    
+    @include desktop-up {
+        max-width: $content-width-md;
+    }
+    
+    @include large-desktop-up {
+        max-width: $content-width-lg;
+    }
+    
+    @include xl-desktop-up {
+        max-width: $content-width-xl;
+    }
+}
+
+/**
+ * Center content with responsive max-width
+ */
+@mixin content-centered {
+    @include content-max-width;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// ============================================================================
+// Text Styling Mixins
+// ============================================================================
+
+/**
+ * Apply text shadow for better contrast on images
+ */
+@mixin text-shadow($strength: 'normal') {
+    @if $strength == 'strong' {
+        text-shadow: $ufpel-text-shadow-strong;
+    } @else {
+        text-shadow: $ufpel-text-shadow;
+    }
+}
+
+/**
+ * Apply box shadow
+ */
+@mixin box-shadow($strength: 'normal') {
+    @if $strength == 'subtle' {
+        box-shadow: $ufpel-box-shadow-subtle;
+    } @else {
+        box-shadow: $ufpel-box-shadow;
+    }
+}
+
+// ============================================================================
+// Backdrop Filter Mixins
+// ============================================================================
+
+/**
+ * Apply backdrop filter with vendor prefixes
+ */
+@mixin backdrop-filter($value: $ufpel-backdrop-blur) {
+    backdrop-filter: $value;
+    -webkit-backdrop-filter: $value;
+}
+
+// ============================================================================
+// Flex Layout Mixins
+// ============================================================================
+
+/**
+ * Flex container with gap
+ */
+@mixin flex-gap($gap: $ufpel-gap-md) {
+    display: flex;
+    gap: $gap;
+}
+
+/**
+ * Flex container with centered items
+ */
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/**
+ * Flex container with vertically centered items
+ */
+@mixin flex-align-center {
+    display: flex;
+    align-items: center;
+}
+
+// ============================================================================
+// Transition Mixins
+// ============================================================================
+
+/**
+ * Apply smooth opacity transition
+ */
+@mixin transition-opacity {
+    transition: $ufpel-transition-opacity;
+}
+
+/**
+ * Apply smooth width transition
+ */
+@mixin transition-width {
+    transition: $ufpel-transition-width;
+}
+
+// ============================================================================
+// Gradient Mixins
+// ============================================================================
+
+/**
+ * Apply linear gradient overlay
+ */
+@mixin gradient-overlay($start: $ufpel-overlay-start, $end: $ufpel-overlay-end) {
+    background: linear-gradient(180deg, $start 0%, $end 100%);
+}
+
+/**
+ * Apply progress bar gradient
+ */
+@mixin progress-gradient {
+    background: linear-gradient(
+        90deg,
+        $ufpel-progress-gradient-start 0%,
+        $ufpel-progress-gradient-end 100%
+    );
+}
+
+// ============================================================================
+// Utility Mixins
+// ============================================================================
+
+/**
+ * Prevent flex item overflow
+ */
+@mixin flex-no-overflow {
+    min-width: 0;
+}
+
+/**
+ * Apply white text styling for course header
+ */
+@mixin header-text-white {
+    color: $color-white;
+    @include text-shadow;
+}
+
+/**
+ * Apply hover effect for links
+ */
+@mixin link-hover($opacity: 0.85) {
+    &:hover,
+    &:focus {
+        opacity: $opacity;
+        color: $color-white;
+        text-decoration: none;
+    }
+}
+
+/**
+ * Screen reader only content
+ */
+@mixin sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
