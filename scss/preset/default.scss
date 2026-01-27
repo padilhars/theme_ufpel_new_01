@@ -37,6 +37,13 @@
 @import "components/mixins";
 
 // ============================================================================
+// Inter Font Declarations (BEFORE other components)
+// ============================================================================
+// Important: Load fonts before typography to ensure font-family is available
+
+@import "components/fonts";
+
+// ============================================================================
 // UFPel Theme Components
 // ============================================================================
 

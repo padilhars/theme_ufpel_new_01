@@ -40,14 +40,48 @@ function theme_ufpel_get_main_scss_content($theme): string {
 /**
  * Get pre-SCSS variables.
  *
- * This is executed before the main SCSS compilation.
+ * This is executed BEFORE Bootstrap and any SCSS compilation.
+ * Perfect place to override Bootstrap's default variables.
  *
  * @param theme_config $theme The theme config object.
  * @return string The pre-SCSS variables.
  */
 function theme_ufpel_get_pre_scss($theme): string {
-    // No pre-SCSS variables needed for now.
-    return '';
+    $prescss = '';
+    
+    // =========================================================================
+    // Override Bootstrap Font Variables
+    // =========================================================================
+    // These are defined BEFORE Bootstrap loads, so Bootstrap will use
+    // our font choices instead of its defaults.
+    // This prevents the long concatenated font-family list.
+    
+    $prescss .= '
+// ============================================================================
+// UFPel Theme - Font Family Variables
+// ============================================================================
+// Override Bootstrap defaults with Inter font
+// Note: Do NOT use !default here - we want to force override
+
+$font-family-sans-serif: "Inter", sans-serif;
+$font-family-monospace: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+
+// ============================================================================
+// Optional: Override other Bootstrap typography variables
+// ============================================================================
+
+// Base font size (Bootstrap default is 1rem)
+// $font-size-base: 1rem;
+
+// Headings font weight (Bootstrap default is 500)
+// $headings-font-weight: 600;
+
+// Line height (Bootstrap default is 1.5)
+$line-height-base: 1.5;
+
+';
+
+    return $prescss;
 }
 
 /**
@@ -84,11 +118,7 @@ function theme_ufpel_pluginfile(
     bool $forcedownload,
     array $options = []
 ): bool {
-    // Serve static files from pix directory.
-    if ($filearea === 'pix') {
-        send_file_not_found();
-    }
-
-    // If we reach here, file was not found.
+    // This theme doesn't serve any custom files.
+    // Fonts are served automatically by Moodle using [[font:theme|path]] syntax.
     send_file_not_found();
 }

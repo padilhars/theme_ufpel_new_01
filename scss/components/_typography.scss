@@ -26,22 +26,39 @@
 // ============================================================================
 
 /**
- * Font family stack with Inter from Google Fonts
- * Uses system fonts as fallback for better performance
+ * Font family stacks
+ * Inter is loaded from local files via _fonts.scss
+ * System fonts as fallback for better performance
  */
-$font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !default;
+$font-family-sans-serif: 'Inter', sans-serif !default;
 $font-family-monospace: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !default;
+
+// ============================================================================
+// Root Font Configuration
+// ============================================================================
+
+/**
+ * Root element font configuration
+ * Applies Inter font with OpenType features enabled
+ */
+:root {
+    font-family: $font-family-sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/**
+ * Progressive enhancement for variable fonts
+ * Browsers that support font-variation-settings will use InterVariable
+ */
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: 'InterVariable', $font-family-sans-serif;
+    }
+}
 
 // ============================================================================
 // Global Typography
 // ============================================================================
-
-/**
- * Apply Inter font to all elements
- */
-* {
-    font-family: $font-family-sans-serif;
-}
 
 /**
  * Body element typography
@@ -52,6 +69,19 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+/**
+ * Progressive enhancement for body with variable fonts
+ */
+@supports (font-variation-settings: normal) {
+    body {
+        font-family: 'InterVariable', $font-family-sans-serif;
+    }
+}
+
+// ============================================================================
+// Headings Typography
+// ============================================================================
 
 /**
  * Headings typography
@@ -72,6 +102,27 @@ h6,
     font-family: $font-family-sans-serif;
 }
 
+@supports (font-variation-settings: normal) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6 {
+        font-family: 'InterVariable', $font-family-sans-serif;
+    }
+}
+
+// ============================================================================
+// Form Elements Typography
+// ============================================================================
+
 /**
  * Input and form elements typography
  * Ensures consistent font across interactive elements
@@ -84,6 +135,20 @@ textarea,
     font-family: $font-family-sans-serif;
 }
 
+@supports (font-variation-settings: normal) {
+    input,
+    button,
+    select,
+    textarea,
+    .btn {
+        font-family: 'InterVariable', $font-family-sans-serif;
+    }
+}
+
+// ============================================================================
+// Navigation Typography
+// ============================================================================
+
 /**
  * Navigation typography
  */
@@ -92,6 +157,18 @@ textarea,
 .navigation {
     font-family: $font-family-sans-serif;
 }
+
+@supports (font-variation-settings: normal) {
+    .navbar,
+    .nav,
+    .navigation {
+        font-family: 'InterVariable', $font-family-sans-serif;
+    }
+}
+
+// ============================================================================
+// Code and Preformatted Text
+// ============================================================================
 
 /**
  * Code and preformatted text
@@ -104,6 +181,10 @@ samp {
     font-family: $font-family-monospace;
 }
 
+// ============================================================================
+// Font Feature Settings
+// ============================================================================
+
 /**
  * Font feature settings for better rendering
  * Enables OpenType features for improved legibility
@@ -113,8 +194,12 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+// ============================================================================
+// High DPI Display Optimization
+// ============================================================================
+
 /**
- * Improve text rendering on different displays
+ * Improve text rendering on high-resolution displays
  */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     body {
