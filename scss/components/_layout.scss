@@ -22,13 +22,43 @@
  */
 
 // ============================================================================
+// Page Wrapper Background
+// ============================================================================
+
+/**
+ * Global page wrapper background
+ * Applies consistent light gray background across all pages
+ */
+#page-wrapper {
+    background: rgb(246 247 248 / 1);
+}
+
+/**
+ * Page element background
+ * Ensures consistent background within the main page container
+ */
+#page-wrapper #page {
+    background: rgb(246 247 248 / 1);
+}
+
+/**
+ * Main region background
+ * Applies background to the primary content region
+ */
+#region-main {
+    background: rgb(246 247 248 / 1);
+}
+
+// ============================================================================
 // Content Width Adjustments
 // ============================================================================
 
 /**
  * Main content area width adjustments for larger screens
+ * Includes custom background color for visual distinction
  */
 #page.drawers .main-inner {
+    background: rgb(246 247 248 / 1);
     @include content-max-width;
 }
 
@@ -37,6 +67,7 @@
  */
 .pagelayout-standard #page.drawers .main-inner,
 body.limitedwidth #page.drawers .main-inner {
+    background: rgb(246 247 248 / 1);
     @include content-max-width;
 }
 

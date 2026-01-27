@@ -1,0 +1,154 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * UFPel theme navigation bar styles.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// ============================================================================
+// Navigation Bar Styling
+// ============================================================================
+
+/**
+ * Main navigation bar with fixed positioning
+ * 
+ * Applies custom styling to the Moodle navbar including:
+ * - Custom background color (white)
+ * - Border color (slate-200)
+ * - Fixed height for consistency
+ */
+.navbar.fixed-top {
+    border-color: rgb(226 232 240 / 1);
+    background-color: rgb(255 255 255 / 1);
+    height: 65px;
+    
+    /**
+     * Ensure navbar content is vertically centered
+     * within the fixed height container
+     */
+    display: flex;
+    align-items: center;
+    
+    /**
+     * Add subtle box shadow for depth
+     */
+    @include box-shadow('subtle');
+    
+    /**
+     * Ensure smooth transitions when scrolling
+     */
+    transition: box-shadow 0.3s ease;
+    
+    /**
+     * Enhanced shadow on scroll or interaction
+     */
+    &.scrolled,
+    &:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/**
+ * Navbar container width adjustments
+ * Ensures navbar content respects theme max-width settings
+ */
+.navbar.fixed-top .container-fluid,
+.navbar.fixed-top .container {
+    @include content-max-width;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/**
+ * Navbar brand/logo alignment
+ */
+.navbar.fixed-top .navbar-brand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/**
+ * Navbar navigation items alignment
+ */
+.navbar.fixed-top .navbar-nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    
+    .nav-item {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+    
+    .nav-link {
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+}
+
+/**
+ * Responsive adjustments for mobile devices
+ */
+@media (max-width: 767px) {
+    .navbar.fixed-top {
+        /**
+         * Slightly reduce height on mobile for better screen real estate
+         */
+        height: 56px;
+    }
+}
+
+/**
+ * Adjust page content to account for fixed navbar height
+ */
+body {
+    /**
+     * Add top padding to prevent content from hiding behind fixed navbar
+     * Value matches navbar height plus small margin
+     */
+    padding-top: 65px;
+    
+    @media (max-width: 767px) {
+        padding-top: 56px;
+    }
+}
+
+/**
+ * Dark mode support (if theme implements dark mode)
+ */
+@media (prefers-color-scheme: dark) {
+    .navbar.fixed-top {
+        border-color: rgb(51 65 85 / 1);
+        background-color: rgb(30 41 59 / 1);
+        
+        .navbar-nav .nav-link {
+            color: rgb(226 232 240 / 1);
+            
+            &:hover,
+            &:focus {
+                color: rgb(255 255 255 / 1);
+            }
+        }
+    }
+}
