@@ -41,47 +41,36 @@ function theme_ufpel_get_main_scss_content($theme): string {
  * Get pre-SCSS variables.
  *
  * This is executed BEFORE Bootstrap and any SCSS compilation.
- * Perfect place to override Bootstrap's default variables.
+ * Loads font declarations from external SCSS file.
  *
  * @param theme_config $theme The theme config object.
- * @return string The pre-SCSS variables.
+ * @return string The pre-SCSS content.
  */
 function theme_ufpel_get_pre_scss($theme): string {
-    $prescss = '';
+    global $CFG;
     
     // =========================================================================
-    // Override Bootstrap Font Variables
+    // Load Font Declarations from External SCSS File
     // =========================================================================
-    // These are defined BEFORE Bootstrap loads, so Bootstrap will use
-    // our font choices instead of its defaults.
-    // This prevents the long concatenated font-family list.
+    // This file contains:
+    // - Font family variables ($font-family-sans-serif, $font-family-monospace)
+    // - @font-face declarations for Inter font family
     
-    $prescss .= '
-// ============================================================================
-// UFPel Theme - Font Family Variables
-// ============================================================================
-// Override Bootstrap defaults with Inter font
-// Note: Do NOT use !default here - we want to force override
-
-$font-family-sans-serif: "Inter", sans-serif;
-$font-family-monospace: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
-
-// ============================================================================
-// Optional: Override other Bootstrap typography variables
-// ============================================================================
-
-// Base font size (Bootstrap default is 1rem)
-// $font-size-base: 1rem;
-
-// Headings font weight (Bootstrap default is 500)
-// $headings-font-weight: 600;
-
-// Line height (Bootstrap default is 1.5)
-$line-height-base: 1.5;
-
-';
-
-    return $prescss;
+    $fontscssfile = $CFG->dirroot . '/theme/ufpel/scss/preset/_fonts-prescss.scss';
+    
+    if (file_exists($fontscssfile)) {
+        $prescss = file_get_contents($fontscssfile);
+        
+        // Replace placeholder with actual font base URL
+        $fontbaseurl = $CFG->wwwroot . '/theme/ufpel/fonts';
+        $prescss = str_replace('[[FONTBASEURL]]', $fontbaseurl, $prescss);
+        
+        return $prescss;
+    } else {
+        // Fallback: log error but don't break the theme
+        debugging('Font SCSS file not found: ' . $fontscssfile, DEBUG_DEVELOPER);
+        return '';
+    }
 }
 
 /**
@@ -118,7 +107,7 @@ function theme_ufpel_pluginfile(
     bool $forcedownload,
     array $options = []
 ): bool {
-    // This theme doesn't serve any custom files.
-    // Fonts are served automatically by Moodle using [[font:theme|path]] syntax.
+    // Fonts are served as static files from the fonts directory.
+    // No special serving logic needed.
     send_file_not_found();
 }

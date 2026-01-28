@@ -32,20 +32,16 @@
 // ============================================================================
 // UFPel Theme Variables and Mixins
 // ============================================================================
+// Note: Font variables and @font-face declarations are in lib.php (pre-SCSS)
+// This ensures they load before Bootstrap and are available everywhere
 
 @import "components/variables";
 @import "components/mixins";
 
 // ============================================================================
-// Inter Font Declarations (BEFORE other components)
-// ============================================================================
-// Important: Load fonts before typography to ensure font-family is available
-
-@import "components/fonts";
-
-// ============================================================================
 // UFPel Theme Components
 // ============================================================================
+// Note: _fonts.scss is NOT imported here as fonts are declared in pre-SCSS
 
 @import "components/typography";
 @import "components/layout";

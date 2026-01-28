@@ -37,75 +37,122 @@
     border-color: rgb(226 232 240 / 1);
     background-color: rgb(255 255 255 / 1);
     height: 65px;
-    
-    /**
-     * Ensure navbar content is vertically centered
-     * within the fixed height container
-     */
+    box-shadow: none;
     display: flex;
     align-items: center;
-    
+
     /**
-     * Add subtle box shadow for depth
+     * Navbar container width adjustments
+     * Ensures navbar content respects theme max-width settings
      */
-    @include box-shadow('subtle');
-    
-    /**
-     * Ensure smooth transitions when scrolling
-     */
-    transition: box-shadow 0.3s ease;
-    
-    /**
-     * Enhanced shadow on scroll or interaction
-     */
-    &.scrolled,
-    &:hover {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+    .container-fluid,
+    .container {
+        @include content-max-width;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 4rem;
+        padding-right: 4rem;
+
+        /**
+         * Navbar brand/logo alignment
+         */
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-top: 0;
+            padding-bottom: 0;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+        }
+
+        /**
+         * Navbar navigation items alignment
+         */
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            
+            .nav-item {
+                display: flex;
+                align-items: center;
+                height: 100%;
+            }
+            
+            .nav-link {
+                display: flex;
+                align-items: center;
+                height: 100%;
+                font-weight: 500;
+                font-size: 0.875rem;
+                line-height: 1.25rem;
+                color: rgb(71 85 105 / 1);
+
+                &:hover,
+                &:focus {
+                    background: unset;
+                    color: rgb(19 127 236 / 1);
+                }
+            }
+        }
+
+        #usernavigation {
+            .nav-link {
+                padding: 0 .5rem;
+                font-size: 22px;
+                color: rgb(148 163 184);
+
+                &:hover,
+                &:focus {
+                    background: unset;
+                    color: rgb(19 127 236 / 1);
+                }
+
+                .count-container {
+                    padding: 3px 6px;
+                    border-radius: 10px;
+                    background-color: #dc3545;
+                    color: #fff;
+                    font-size: 9px;
+                    line-height: 10px;
+                    top: -5px;
+                    right: 3px;
+                }
+            }
+
+            .usermenu {
+                .btn {
+                    &.show,
+                    &:focus {
+                        border: 0;
+                    } 
+                }
+
+                .dropdown-menu {
+                    transform: translate(0, 0.5rem) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                    border-radius: 0.75rem;
+                    border: 1px solid rgb(241 245 249 / 1);
+                    background-color: rgb(255 255 255 / 1);
+                    padding-top: 0.75rem;
+                    padding-bottom: 0.75rem;
+                    box-shadow: 0 0 #0000, 0 0 #0000, 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+                    transition-property: display;
+                    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                    transition-duration: 200ms;
+                    display: none;
+
+                    &.show {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }    
 }
 
-/**
- * Navbar container width adjustments
- * Ensures navbar content respects theme max-width settings
- */
-.navbar.fixed-top .container-fluid,
-.navbar.fixed-top .container {
-    @include content-max-width;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/**
- * Navbar brand/logo alignment
- */
-.navbar.fixed-top .navbar-brand {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-/**
- * Navbar navigation items alignment
- */
-.navbar.fixed-top .navbar-nav {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    
-    .nav-item {
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
-    
-    .nav-link {
-        display: flex;
-        align-items: center;
-        height: 100%;
-    }
-}
 
 /**
  * Responsive adjustments for mobile devices
@@ -119,20 +166,6 @@
     }
 }
 
-/**
- * Adjust page content to account for fixed navbar height
- */
-body {
-    /**
-     * Add top padding to prevent content from hiding behind fixed navbar
-     * Value matches navbar height plus small margin
-     */
-    padding-top: 65px;
-    
-    @media (max-width: 767px) {
-        padding-top: 56px;
-    }
-}
 
 /**
  * Dark mode support (if theme implements dark mode)

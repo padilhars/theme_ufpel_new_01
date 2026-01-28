@@ -1,0 +1,189 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * UFPel theme font declarations and variables for pre-SCSS.
+ *
+ * This file is loaded BEFORE Bootstrap via the pre-SCSS callback in lib.php.
+ * It uses a [[FONTBASEURL]] placeholder that will be replaced by the actual
+ * font URL before SCSS compilation.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// ============================================================================
+// Font Family Variables - Override Bootstrap Defaults
+// ============================================================================
+
+/**
+ * Sans-serif font stack with Inter as primary font.
+ * This overrides Bootstrap's default $font-family-sans-serif variable.
+ * System fonts are kept as fallback for better performance.
+ */
+$font-family-sans-serif: "Inter", sans-serif;
+
+/**
+ * Monospace font stack for code elements.
+ * This overrides Bootstrap's default $font-family-monospace variable.
+ */
+$font-family-monospace: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+
+// ============================================================================
+// Inter Variable Fonts (Modern Browsers)
+// ============================================================================
+
+/**
+ * Inter Variable - Normal
+ * Single file with all weights (100-900)
+ * Best for performance and smooth weight transitions
+ * Supports all modern browsers with variable font support
+ */
+@font-face {
+    font-family: 'InterVariable';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/InterVariable.woff2') format('woff2-variations');
+}
+
+/**
+ * Inter Variable - Italic
+ * Single file with all italic weights (100-900)
+ * Provides smooth italic variations across all weights
+ */
+@font-face {
+    font-family: 'InterVariable';
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/InterVariable-Italic.woff2') format('woff2-variations');
+}
+
+// ============================================================================
+// Inter Static Fonts (Fallback for Older Browsers)
+// ============================================================================
+
+/**
+ * Inter Regular (400)
+ * Most used weight - essential fallback for browsers without variable font support
+ */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-Regular.woff2') format('woff2');
+}
+
+/**
+ * Inter Medium (500)
+ * Common for UI elements and subtle emphasis
+ */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-Medium.woff2') format('woff2');
+}
+
+/**
+ * Inter Semi Bold (600)
+ * Common for headings and stronger emphasis
+ */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-SemiBold.woff2') format('woff2');
+}
+
+/**
+ * Inter Bold (700)
+ * Standard bold weight for strong emphasis
+ */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-Bold.woff2') format('woff2');
+}
+
+/**
+ * Inter Italic (400)
+ * Essential for emphasized text and citations
+ */
+@font-face {
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-Italic.woff2') format('woff2');
+}
+
+/**
+ * Inter Bold Italic (700)
+ * For bold emphasized text and strong citations
+ */
+@font-face {
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-BoldItalic.woff2') format('woff2');
+}
+
+// ============================================================================
+// Optional: Additional Weights (Uncomment if needed)
+// ============================================================================
+
+/**
+ * Uncomment the following @font-face declarations if you need additional
+ * font weights in your design. These are not loaded by default to optimize
+ * performance.
+ */
+
+/*
+// Inter Light (300) - For delicate text
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-Light.woff2') format('woff2');
+}
+
+// Inter Extra Bold (800) - For heavy emphasis
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-ExtraBold.woff2') format('woff2');
+}
+
+// Inter Black (900) - For maximum impact
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('[[FONTBASEURL]]/inter/Inter-Black.woff2') format('woff2');
+}
+*/

@@ -36,6 +36,7 @@
     overflow: hidden;
     border-radius: $ufpel-header-border-radius;
     
+    
     @include tablet-up {
         height: $ufpel-header-height;
         width: calc(100% - #{$ufpel-header-margin-horizontal * 2});
@@ -99,7 +100,7 @@
     align-items: center;
     padding: $badge-padding-mobile;
     font-size: $badge-font-size-mobile;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     color: $color-white;
     text-transform: uppercase;

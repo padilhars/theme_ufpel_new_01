@@ -16,22 +16,14 @@
 /**
  * UFPel theme typography styles.
  *
+ * This file applies the Inter font family to elements and configures
+ * typography rendering. Font declarations and variables are defined
+ * in preset/_fonts-prescss.scss (loaded via pre-SCSS).
+ *
  * @package    theme_ufpel
  * @copyright  2025 Universidade Federal de Pelotas
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// ============================================================================
-// Typography Variables
-// ============================================================================
-
-/**
- * Font family stacks
- * Inter is loaded from local files via _fonts.scss
- * System fonts as fallback for better performance
- */
-$font-family-sans-serif: 'Inter', sans-serif !default;
-$font-family-monospace: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !default;
 
 // ============================================================================
 // Root Font Configuration
@@ -40,6 +32,7 @@ $font-family-monospace: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Conso
 /**
  * Root element font configuration
  * Applies Inter font with OpenType features enabled
+ * Font family variables are defined in preset/_fonts-prescss.scss
  */
 :root {
     font-family: $font-family-sans-serif;
