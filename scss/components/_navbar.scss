@@ -50,8 +50,11 @@
         @include content-max-width;
         margin-left: auto;
         margin-right: auto;
-        padding-left: 4rem;
-        padding-right: 4rem;
+        
+        @include tablet-up {
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
 
         /**
          * Navbar brand/logo alignment
@@ -89,21 +92,36 @@
                 font-weight: 500;
                 font-size: 0.875rem;
                 line-height: 1.25rem;
-                color: rgb(71 85 105 / 1);
+                color: $ufpel-font-color-gray;
+                outline: 0;
+                box-shadow: none;
 
                 &:hover,
                 &:focus {
                     background: unset;
-                    color: rgb(19 127 236 / 1);
+                    color: $ufpel-font-color-blue;
+                }
+
+                &.active {
+                    color: $ufpel-font-color-blue;
+                    border: unset;
+
+                    &:after {
+                        width: unset;
+                    }
                 }
             }
         }
+
+        
 
         #usernavigation {
             .nav-link {
                 padding: 0 .5rem;
                 font-size: 22px;
-                color: rgb(148 163 184);
+                color: rgb(100 116 139 / 49%);
+                outline: 0;
+                box-shadow: none;
 
                 &:hover,
                 &:focus {
@@ -123,30 +141,243 @@
                 }
             }
 
-            .usermenu {
+            .popover-region-toggle {
+                &:after,
+                &:before {
+                    display: none;
+                }
+            }
+            .popover-region-container {
+                top: 100%;
+                border-radius: 0.75rem;
+                border: 1px solid rgb(241 245 249 / 1);
+                background-color: rgb(255 255 255 / 1);
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                box-shadow: 0 0 #0000, 0 0 #0000, 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+                transition: none;
+
+                &[aria-hidden="false"] {
+                    @include animate-slide-up;
+                }
+
+                .popover-region-header-container {
+                    display: flex;
+                    padding-bottom: .75rem;
+                    padding-right: 1rem;
+                    padding-left: 1rem;
+                    border-bottom: 1px solid #eeeeee;
+                    box-sizing: border-box;
+                    height: 46px;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-content: center;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    *:focus {
+                        outline: 0;
+                        box-shadow: unset;
+                    }
+                    .popover-region-header-text {
+                        font-size: 0.875rem;
+                        line-height: 1.25rem;
+                        font-weight: 700;
+                    }
+
+                }
+
+                .popover-region-content-container {
+                    height: calc(100% - 85px);
+
+                    .popover-region-content {
+                        transition: none;
+
+                        .all-notifications {
+                            .content-item-container {
+                                background: #ffffff;
+                                padding: 0.5rem 0.75rem;
+                                border-color: #eeeeee;
+
+                                &:nth-child(odd) {
+                                    background: #f8f9fa;
+                                }
+
+                                &.unread {
+                                    
+                                }
+
+                                &:hover {
+                                    background-color: rgb(231, 242, 253);
+
+                                    .notification-message,
+                                    .timestamp {
+                                        color: rgb(19 127 236 / 1);
+                                    }
+                                }
+
+                                .view-more {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .see-all-link {
+                    text-decoration: none;
+
+                    .popover-region-footer-container {
+                        height: 40px;
+                        border-top: 1px solid #eeeeee;
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: nowrap;
+                        align-content: center;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 0.875rem;
+                        font-weight: 500;
+                        padding-top:0.75rem;
+                    }
+                }
+            }
+
+            .langmenu {
                 .btn {
+                    outline: 0;
+                    box-shadow: none;
+                    border: 0;
+                    font-weight: 500;
+                    font-size: 0.875rem;
+                    line-height: 1.25rem;
+                    color: $ufpel-font-color-gray;
+
                     &.show,
                     &:focus {
                         border: 0;
-                    } 
+                    }
                 }
 
                 .dropdown-menu {
-                    transform: translate(0, 0.5rem) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
                     border-radius: 0.75rem;
                     border: 1px solid rgb(241 245 249 / 1);
                     background-color: rgb(255 255 255 / 1);
                     padding-top: 0.75rem;
                     padding-bottom: 0.75rem;
                     box-shadow: 0 0 #0000, 0 0 #0000, 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-                    transition-property: display;
-                    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-                    transition-duration: 200ms;
-                    display: none;
 
                     &.show {
-                        display: block;
+                        @include animate-slide-up;
                     }
+
+                    .dropdown-item {
+                        font-size: .875rem;
+                        font-weight: 500;
+                        color: $ufpel-font-color-gray;
+
+                        &:hover {
+                            background-color: #e7f2fd;
+                            color: $ufpel-font-color-blue;
+                        }
+
+                         &:active {
+                             background-color: unset;
+                             color: $ufpel-font-color-blue;
+                             @include animate-scale-in;
+                         }
+                     }
+                }
+            }
+
+            .usermenu {
+                .login {
+                    
+
+                    &.ps-2 {
+                        padding-left: 0;
+                    }
+
+                    a {
+                        color: #fff;
+                        text-decoration: none;
+                        font-size: .875rem;
+                        background-color: #137fec;
+                        padding-top: 0.5rem;
+                        border-radius: 0.5rem;
+                        padding-left: 1.25rem;
+                        padding-right: 1.25rem;
+                        padding-bottom: 0.5rem;
+
+                        @include transition-interactive; 
+
+                        &:hover { 
+                            transform: translateY(-2px); 
+                            box-shadow: 0 4px 12px rgba(19, 127, 236, 0.3); 
+                        }
+                    }
+                }
+                .btn {
+                    outline: 0;
+                    box-shadow: none;
+                    border: 0;
+
+                    &.show,
+                    &:focus {
+                        border: 0;
+                    }
+
+                    .userinitials,
+                    .userpicture {
+                        background-color: rgb(231, 242, 253);
+                        border-radius: 5px;
+                    }
+                }
+
+                .dropdown-menu {
+                    border-radius: 0.75rem;
+                    border: 1px solid rgb(241 245 249 / 1);
+                    background-color: rgb(255 255 255 / 1);
+                    padding-top: 0.75rem;
+                    padding-bottom: 0.75rem;
+                    box-shadow: 0 0 #0000, 0 0 #0000, 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+                    &.show {
+                        @include animate-slide-up;
+                    }
+
+                    .dropdown-item {
+                        font-size: .875rem;
+                        font-weight: 500;
+                        color: $ufpel-font-color-gray;
+
+                        &:hover {
+                            background-color: #e7f2fd;
+                            color: $ufpel-font-color-blue;
+                        }
+
+                        &:active {
+                            background-color: unset;
+                            color: $ufpel-font-color-blue;
+                            @include animate-scale-in;
+                        }
+                    }
+
+                    .dropdown-divider {
+                        border-top: 1px solid #eeeeee !important;
+                    }
+                }
+            }
+
+            .divider {
+                height: 45px !important;
+                border-left: solid 1px #eeeeee !important;
+            }
+
+            .editmode-switch-form {
+                .form-check-label {
+                    font-size: .875rem;
+                    color: $ufpel-font-color-gray;
                 }
             }
         }

@@ -1,0 +1,377 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * UFPel theme animations and transitions.
+ *
+ * This file contains CSS animations, keyframes, and transition utilities
+ * following modern web animation best practices with performance in mind.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// ============================================================================
+// Animation Variables
+// ============================================================================
+
+// Animation durations (following Material Design specifications)
+$animation-duration-instant: 100ms !default;
+$animation-duration-fast: 200ms !default;
+$animation-duration-normal: 300ms !default;
+$animation-duration-slow: 400ms !default;
+$animation-duration-slower: 500ms !default;
+
+// Animation easing functions
+$ease-in-out-cubic: cubic-bezier(0.4, 0, 0.2, 1) !default;
+$ease-out-cubic: cubic-bezier(0.0, 0, 0.2, 1) !default;
+$ease-in-cubic: cubic-bezier(0.4, 0, 1, 1) !default;
+$ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1) !default;
+$ease-in-out-back: cubic-bezier(0.68, -0.55, 0.265, 1.55) !default;
+
+// Animation delays
+$animation-delay-short: 50ms !default;
+$animation-delay-normal: 100ms !default;
+$animation-delay-long: 150ms !default;
+
+// ============================================================================
+// Keyframe Animations
+// ============================================================================
+
+/**
+ * Fade In
+ * Smooth fade-in effect from transparent to visible
+ */
+@keyframes ufpel-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/**
+ * Fade Out
+ * Smooth fade-out effect from visible to transparent
+ */
+@keyframes ufpel-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/**
+ * Slide Down
+ * Dropdown menu slide down animation with fade
+ */
+@keyframes ufpel-slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**
+ * Slide Up
+ * Dropdown menu slide up animation with fade
+ */
+@keyframes ufpel-slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**
+ * Scale In
+ * Scale up effect with fade - useful for modals and popovers
+ */
+@keyframes ufpel-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/**
+ * Scale Out
+ * Scale down effect with fade
+ */
+@keyframes ufpel-scale-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/**
+ * Pulse
+ * Subtle pulse effect for attention
+ */
+@keyframes ufpel-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+/**
+ * Shake
+ * Shake animation for error feedback
+ */
+@keyframes ufpel-shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/**
+ * Bounce In
+ * Bouncy entrance animation
+ */
+@keyframes ufpel-bounce-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/**
+ * Rotate In
+ * Rotation entrance effect
+ */
+@keyframes ufpel-rotate-in {
+    from {
+        opacity: 0;
+        transform: rotate(-180deg);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
+/**
+ * Shimmer
+ * Loading shimmer effect
+ */
+@keyframes ufpel-shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/**
+ * Progress Bar Fill
+ * Animated progress bar fill effect
+ */
+@keyframes ufpel-progress-fill {
+    from {
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+    to {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+}
+
+/**
+ * Progress Bar Indeterminate
+ * Indeterminate progress animation
+ */
+@keyframes ufpel-progress-indeterminate {
+    0% {
+        left: -35%;
+        right: 100%;
+    }
+    60% {
+        left: 100%;
+        right: -90%;
+    }
+    100% {
+        left: 100%;
+        right: -90%;
+    }
+}
+
+/**
+ * Ripple Effect
+ * Material Design ripple animation
+ */
+@keyframes ufpel-ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/**
+ * Slide In From Left
+ * Horizontal slide in animation
+ */
+@keyframes ufpel-slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/**
+ * Slide In From Right
+ * Horizontal slide in animation from right
+ */
+@keyframes ufpel-slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/**
+ * Flip In
+ * 3D flip entrance animation
+ */
+@keyframes ufpel-flip-in {
+    from {
+        transform: perspective(400px) rotateX(-90deg);
+        opacity: 0;
+    }
+    40% {
+        transform: perspective(400px) rotateX(20deg);
+    }
+    60% {
+        transform: perspective(400px) rotateX(-10deg);
+        opacity: 1;
+    }
+    80% {
+        transform: perspective(400px) rotateX(5deg);
+    }
+    to {
+        transform: perspective(400px) rotateX(0);
+        opacity: 1;
+    }
+}
+
+/**
+ * Glow
+ * Glowing effect animation
+ */
+@keyframes ufpel-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.8);
+    }
+}
+
+/**
+ * Loading Dots
+ * Three dots loading animation
+ */
+@keyframes ufpel-loading-dots {
+    0%, 20% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/**
+ * Skeleton Loading
+ * Skeleton screen loading effect
+ */
+@keyframes ufpel-skeleton-loading {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+// ============================================================================
+// Reduced Motion Support
+// ============================================================================
+
+/**
+ * Respect user's motion preferences
+ * Disable animations for users who prefer reduced motion
+ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

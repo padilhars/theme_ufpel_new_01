@@ -36,8 +36,8 @@ $content-width-xl: 1600px !default;
 // ============================================================================
 
 // Header dimensions
-$ufpel-header-height: 300px !default;
-$ufpel-header-height-mobile: 200px !default;
+$ufpel-header-height: 350px !default;
+$ufpel-header-height-mobile: 250px !default;
 $ufpel-header-border-radius: 1rem !default;
 
 // Header spacing
@@ -117,6 +117,11 @@ $ufpel-transition-width: width 0.3s ease !default;
 // Colors
 $color-white: #ffffff !default;
 $color-black: #000000 !default;
+
+$ufpel-font-color-black: rgb(0, 0, 0 / 1) !default;
+$ufpel-font-color-white: rgb(255, 255, 255 / 1) !default;
+$ufpel-font-color-gray: rgb(71 85 105 / 1) !default;
+$ufpel-font-color-blue: rgb(19 127 236 / 1) !default;
 
 // Backdrop filter
 $ufpel-backdrop-blur: blur(5px) !default;

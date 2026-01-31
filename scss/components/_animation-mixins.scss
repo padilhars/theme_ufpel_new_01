@@ -1,0 +1,437 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * UFPel theme animation mixins.
+ *
+ * Reusable mixins for applying animations to elements.
+ * These mixins ensure consistent animation behavior across the theme.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// ============================================================================
+// Animation Application Mixins
+// ============================================================================
+
+/**
+ * Apply fade in animation
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-normal)
+ * @param {String} $delay - Animation delay (default: 0s)
+ */
+@mixin animate-fade-in($duration: $animation-duration-normal, $delay: 0s) {
+    animation: ufpel-fade-in $duration $ease-out-cubic $delay both;
+}
+
+/**
+ * Apply fade out animation
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-normal)
+ * @param {String} $delay - Animation delay (default: 0s)
+ */
+@mixin animate-fade-out($duration: $animation-duration-normal, $delay: 0s) {
+    animation: ufpel-fade-out $duration $ease-in-cubic $delay both;
+}
+
+/**
+ * Apply slide down animation
+ * Perfect for dropdown menus
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-fast)
+ */
+@mixin animate-slide-down($duration: $animation-duration-fast) {
+    animation: ufpel-slide-down $duration $ease-out-cubic both;
+}
+
+/**
+ * Apply slide up animation
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-fast)
+ */
+@mixin animate-slide-up($duration: $animation-duration-fast) {
+    animation: ufpel-slide-up $duration $ease-out-cubic both;
+}
+
+/**
+ * Apply scale in animation
+ * Perfect for modals and tooltips
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-normal)
+ */
+@mixin animate-scale-in($duration: $animation-duration-normal) {
+    animation: ufpel-scale-in $duration $ease-out-back both;
+}
+
+/**
+ * Apply scale out animation
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-normal)
+ */
+@mixin animate-scale-out($duration: $animation-duration-normal) {
+    animation: ufpel-scale-out $duration $ease-in-cubic both;
+}
+
+/**
+ * Apply pulse animation
+ * Useful for loading states or drawing attention
+ *
+ * @param {String} $duration - Animation duration (default: 2s)
+ */
+@mixin animate-pulse($duration: 2s) {
+    animation: ufpel-pulse $duration $ease-in-out-cubic infinite;
+}
+
+/**
+ * Apply shake animation
+ * Perfect for form validation errors
+ */
+@mixin animate-shake {
+    animation: ufpel-shake $animation-duration-slow $ease-in-out-cubic;
+}
+
+/**
+ * Apply bounce in animation
+ * Playful entrance effect
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-slower)
+ */
+@mixin animate-bounce-in($duration: $animation-duration-slower) {
+    animation: ufpel-bounce-in $duration $ease-out-cubic both;
+}
+
+/**
+ * Apply slide in from left animation
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-normal)
+ * @param {String} $delay - Animation delay (default: 0s)
+ */
+@mixin animate-slide-in-left($duration: $animation-duration-normal, $delay: 0s) {
+    animation: ufpel-slide-in-left $duration $ease-out-cubic $delay both;
+}
+
+/**
+ * Apply slide in from right animation
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-normal)
+ * @param {String} $delay - Animation delay (default: 0s)
+ */
+@mixin animate-slide-in-right($duration: $animation-duration-normal, $delay: 0s) {
+    animation: ufpel-slide-in-right $duration $ease-out-cubic $delay both;
+}
+
+/**
+ * Apply flip in animation
+ * 3D card flip effect
+ *
+ * @param {String} $duration - Animation duration (default: $animation-duration-slower)
+ */
+@mixin animate-flip-in($duration: $animation-duration-slower) {
+    animation: ufpel-flip-in $duration $ease-out-cubic both;
+}
+
+/**
+ * Apply glow animation
+ * Glowing effect for special elements
+ */
+@mixin animate-glow {
+    animation: ufpel-glow 2s $ease-in-out-cubic infinite;
+}
+
+// ============================================================================
+// Transition Mixins
+// ============================================================================
+
+/**
+ * Apply smooth transition to all properties
+ *
+ * @param {String} $duration - Transition duration (default: $animation-duration-fast)
+ */
+@mixin transition-all($duration: $animation-duration-fast) {
+    transition: all $duration $ease-in-out-cubic;
+}
+
+/**
+ * Apply smooth color transition
+ * Optimized for background and text color changes
+ *
+ * @param {String} $duration - Transition duration (default: $animation-duration-fast)
+ */
+@mixin transition-color($duration: $animation-duration-fast) {
+    transition: color $duration $ease-in-out-cubic,
+                background-color $duration $ease-in-out-cubic,
+                border-color $duration $ease-in-out-cubic;
+}
+
+/**
+ * Apply smooth transform transition
+ * Hardware-accelerated for better performance
+ *
+ * @param {String} $duration - Transition duration (default: $animation-duration-fast)
+ */
+@mixin transition-transform($duration: $animation-duration-fast) {
+    transition: transform $duration $ease-out-cubic;
+    will-change: transform;
+}
+
+/**
+ * Apply smooth shadow transition
+ *
+ * @param {String} $duration - Transition duration (default: $animation-duration-normal)
+ */
+@mixin transition-shadow($duration: $animation-duration-normal) {
+    transition: box-shadow $duration $ease-in-out-cubic;
+}
+
+/**
+ * Apply combined transitions for interactive elements
+ * Optimized for buttons and links
+ *
+ * @param {String} $duration - Transition duration (default: $animation-duration-fast)
+ */
+@mixin transition-interactive($duration: $animation-duration-fast) {
+    transition: color $duration $ease-in-out-cubic,
+                background-color $duration $ease-in-out-cubic,
+                border-color $duration $ease-in-out-cubic,
+                box-shadow $duration $ease-in-out-cubic,
+                transform $duration $ease-out-cubic;
+    will-change: transform;
+}
+
+// ============================================================================
+// Loading State Mixins
+// ============================================================================
+
+/**
+ * Apply skeleton loading effect
+ * Perfect for content placeholders
+ */
+@mixin skeleton-loading {
+    background: linear-gradient(
+        90deg,
+        rgba(226, 232, 240, 0.2) 0%,
+        rgba(226, 232, 240, 0.4) 20%,
+        rgba(226, 232, 240, 0.5) 60%,
+        rgba(226, 232, 240, 0.2) 100%
+    );
+    background-size: 200px 100%;
+    animation: ufpel-skeleton-loading 1.5s ease-in-out infinite;
+}
+
+/**
+ * Apply shimmer loading effect
+ * Alternative loading animation
+ */
+@mixin shimmer-loading {
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 1000px 100%;
+    animation: ufpel-shimmer 2s infinite;
+}
+
+/**
+ * Apply loading dots animation
+ * For "Loading..." text indicators
+ *
+ * Usage: Apply to three consecutive spans
+ */
+@mixin loading-dots {
+    &:nth-child(1) {
+        animation: ufpel-loading-dots 1.4s infinite;
+        animation-delay: 0s;
+    }
+    
+    &:nth-child(2) {
+        animation: ufpel-loading-dots 1.4s infinite;
+        animation-delay: 0.2s;
+    }
+    
+    &:nth-child(3) {
+        animation: ufpel-loading-dots 1.4s infinite;
+        animation-delay: 0.4s;
+    }
+}
+
+// ============================================================================
+// Progress Bar Animation Mixins
+// ============================================================================
+
+/**
+ * Apply progress bar fill animation
+ *
+ * @param {String} $duration - Animation duration (default: 1s)
+ */
+@mixin animate-progress-fill($duration: 1s) {
+    animation: ufpel-progress-fill $duration $ease-out-cubic both;
+}
+
+/**
+ * Apply indeterminate progress animation
+ * For unknown progress states
+ */
+@mixin animate-progress-indeterminate {
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: -35%;
+        background-color: inherit;
+        animation: ufpel-progress-indeterminate 2s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+    }
+}
+
+// ============================================================================
+// Hover Effect Mixins
+// ============================================================================
+
+/**
+ * Apply lift hover effect
+ * Subtle upward movement on hover
+ *
+ * @param {String} $distance - Distance to lift (default: -2px)
+ */
+@mixin hover-lift($distance: -2px) {
+    @include transition-interactive;
+    
+    &:hover,
+    &:focus {
+        transform: translateY($distance);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/**
+ * Apply grow hover effect
+ * Scale up on hover
+ *
+ * @param {Number} $scale - Scale factor (default: 1.05)
+ */
+@mixin hover-grow($scale: 1.05) {
+    @include transition-transform;
+    
+    &:hover,
+    &:focus {
+        transform: scale($scale);
+    }
+}
+
+/**
+ * Apply glow hover effect
+ * Add glowing border on hover
+ *
+ * @param {Color} $color - Glow color (default: primary color)
+ */
+@mixin hover-glow($color: rgb(19, 127, 236)) {
+    @include transition-shadow;
+    
+    &:hover,
+    &:focus {
+        box-shadow: 0 0 0 3px rgba($color, 0.3);
+    }
+}
+
+/**
+ * Apply shine hover effect
+ * Animated shine across element
+ */
+@mixin hover-shine {
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent
+        );
+        transition: left $animation-duration-slow $ease-out-cubic;
+    }
+    
+    &:hover::before,
+    &:focus::before {
+        left: 100%;
+    }
+}
+
+// ============================================================================
+// Ripple Effect Mixin
+// ============================================================================
+
+/**
+ * Apply Material Design ripple effect
+ * Requires JavaScript for positioning
+ */
+@mixin ripple-effect {
+    position: relative;
+    overflow: hidden;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.6);
+        width: 100px;
+        height: 100px;
+        margin-top: -50px;
+        margin-left: -50px;
+        top: 50%;
+        left: 50%;
+        animation: ufpel-ripple 0.6s ease-out;
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    &:active::after {
+        animation: ufpel-ripple 0.6s ease-out;
+    }
+}
+
+// ============================================================================
+// Stagger Animation Mixin
+// ============================================================================
+
+/**
+ * Apply staggered animation to child elements
+ * Creates a cascading effect
+ *
+ * @param {String} $animation - Animation name
+ * @param {String} $duration - Animation duration
+ * @param {Number} $items - Number of items (default: 10)
+ * @param {String} $delay - Delay between items (default: 50ms)
+ */
+@mixin stagger-animation($animation, $duration, $items: 10, $delay: 50ms) {
+    @for $i from 1 through $items {
+        &:nth-child(#{$i}) {
+            animation: $animation $duration $ease-out-cubic #{$delay * ($i - 1)} both;
+        }
+    }
+}

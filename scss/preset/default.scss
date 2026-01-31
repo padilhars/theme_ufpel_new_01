@@ -39,6 +39,15 @@
 @import "components/mixins";
 
 // ============================================================================
+// Animation System
+// ============================================================================
+// Import animation keyframes, variables, and mixins
+// These provide reusable animations throughout the theme
+
+@import "components/animations";
+@import "components/animation-mixins";
+
+// ============================================================================
 // UFPel Theme Components
 // ============================================================================
 // Note: _fonts.scss is NOT imported here as fonts are declared in pre-SCSS
@@ -47,3 +56,11 @@
 @import "components/layout";
 @import "components/navbar";
 @import "components/course-header";
+
+// ============================================================================
+// Animated Components
+// ============================================================================
+// Apply animations to Moodle UI elements
+// This must be imported AFTER base components to override properly
+
+//@import "components/animated-components";

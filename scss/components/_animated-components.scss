@@ -1,0 +1,708 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * UFPel theme animated components.
+ *
+ * Applies animations to specific Moodle UI components.
+ * This file contains styles for dropdowns, buttons, progress bars, etc.
+ *
+ * @package    theme_ufpel
+ * @copyright  2025 Universidade Federal de Pelotas
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// ============================================================================
+// Dropdown Menus
+// ============================================================================
+
+/**
+ * Animated dropdown menus
+ * Smooth slide down with fade effect
+ */
+.dropdown-menu {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    @include transition-all($animation-duration-fast);
+    
+    &.show {
+        display: block;
+        @include animate-slide-down;
+    }
+}
+
+/**
+ * User navigation dropdown
+ * Enhanced animation with scale effect
+ */
+#usernavigation {
+    .dropdown-menu {
+        &.show {
+            //@include animate-scale-in($animation-duration-fast);
+            @include animate-slide-up;
+        }
+    }
+}
+
+/**
+ * Language menu dropdown
+ */
+.langmenu {
+    .dropdown-menu {
+        &.show {
+            @include animate-slide-down($animation-duration-fast);
+        }
+    }
+}
+
+// ============================================================================
+// Buttons
+// ============================================================================
+
+/**
+ * Primary buttons with hover effects
+ */
+.btn-primary {
+    @include transition-interactive;
+    position: relative;
+    overflow: hidden;
+    
+    &:hover,
+    &:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(19, 127, 236, 0.3);
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+/**
+ * Secondary buttons
+ */
+.btn-secondary {
+    @include transition-interactive;
+    
+    &:hover,
+    &:focus {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/**
+ * Success buttons
+ */
+.btn-success {
+    @include transition-interactive;
+    
+    &:hover,
+    &:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+}
+
+/**
+ * Danger buttons
+ */
+.btn-danger {
+    @include transition-interactive;
+    
+    &:hover,
+    &:focus {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+}
+
+/**
+ * Link buttons - subtle animation
+ */
+.btn-link {
+    @include transition-color;
+    
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+/**
+ * Icon-only buttons
+ */
+.btn-icon {
+    @include transition-transform($animation-duration-fast);
+    
+    &:hover,
+    &:focus {
+        transform: scale(1.1);
+    }
+    
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+// ============================================================================
+// Progress Bars
+// ============================================================================
+
+/**
+ * Standard progress bar with fill animation
+ */
+.progress {
+    overflow: hidden;
+    background-color: rgba(226, 232, 240, 0.3);
+    
+    .progress-bar {
+        @include animate-progress-fill(1.2s);
+        @include transition-all($animation-duration-normal);
+        
+        // Pulse effect when nearing completion
+        &[aria-valuenow="100"],
+        &[style*="100%"] {
+            @include animate-pulse(1.5s);
+        }
+    }
+}
+
+/**
+ * Course completion progress
+ */
+.ufpel-progress-bar {
+    @include transition-all($animation-duration-normal);
+    
+    // Smooth width transition as progress updates
+    &[style*="width"] {
+        transition: width $animation-duration-slow $ease-out-cubic;
+    }
+}
+
+/**
+ * Indeterminate progress - loading state
+ */
+.progress-indeterminate {
+    .progress-bar {
+        @include animate-progress-indeterminate;
+    }
+}
+
+// ============================================================================
+// Toggles and Switches
+// ============================================================================
+
+/**
+ * Drawer toggle button
+ */
+.drawer-toggle {
+    @include transition-transform;
+    
+    &:hover,
+    &:focus {
+        transform: scale(1.1);
+    }
+    
+    // Rotate icon when drawer is open
+    &[aria-expanded="true"] {
+        .icon {
+            transform: rotate(180deg);
+            transition: transform $animation-duration-normal $ease-in-out-cubic;
+        }
+    }
+}
+
+/**
+ * Navbar toggle (hamburger menu)
+ */
+.navbar-toggler {
+    @include transition-all;
+    
+    &:hover,
+    &:focus {
+        transform: scale(1.05);
+    }
+    
+    .navbar-toggler-icon {
+        @include transition-transform;
+    }
+    
+    // Animated hamburger to X
+    &[aria-expanded="true"] {
+        .navbar-toggler-icon {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+/**
+ * Collapsible sections
+ */
+.collapse {
+    &:not(.show) {
+        display: none;
+    }
+    
+    &.collapsing {
+        transition: height $animation-duration-normal $ease-in-out-cubic;
+    }
+}
+
+// ============================================================================
+// Modals and Dialogs
+// ============================================================================
+
+/**
+ * Modal backdrop fade
+ */
+.modal-backdrop {
+    opacity: 0;
+    @include transition-opacity;
+    
+    &.show {
+        @include animate-fade-in($animation-duration-normal);
+    }
+}
+
+/**
+ * Modal dialog scale and fade
+ */
+.modal {
+    &.fade .modal-dialog {
+        opacity: 0;
+        transform: scale(0.95) translateY(-50px);
+        @include transition-all($animation-duration-normal);
+    }
+    
+    &.show .modal-dialog {
+        @include animate-scale-in($animation-duration-normal);
+    }
+}
+
+// ============================================================================
+// Tooltips and Popovers
+// ============================================================================
+
+/**
+ * Tooltip fade and slide
+ *
+.tooltip {
+    opacity: 0;
+    
+    &.show {
+        @include animate-fade-in($animation-duration-fast);
+    }
+    
+    // Direction-specific animations
+    &.bs-tooltip-top {
+        &.show {
+            @include animate-slide-up($animation-duration-fast);
+        }
+    }
+    
+    &.bs-tooltip-bottom {
+        &.show {
+            @include animate-slide-down($animation-duration-fast);
+        }
+    }
+    
+    &.bs-tooltip-start {
+        &.show {
+            @include animate-slide-in-right($animation-duration-fast);
+        }
+    }
+    
+    &.bs-tooltip-end {
+        &.show {
+            @include animate-slide-in-left($animation-duration-fast);
+        }
+    }
+}
+*/
+/**
+ * Popover scale in
+ */
+.popover {
+    opacity: 0;
+    
+    &.show {
+        @include animate-scale-in($animation-duration-normal);
+    }
+}
+
+// ============================================================================
+// Alerts and Notifications
+// ============================================================================
+
+/**
+ * Alert messages slide in
+ */
+.alert {
+    @include animate-slide-down;
+    
+    // Shake animation for error alerts
+    &.alert-danger {
+        &.shake {
+            @include animate-shake;
+        }
+    }
+    
+    // Close button animation
+    .close,
+    .btn-close {
+        @include transition-transform;
+        
+        &:hover,
+        &:focus {
+            transform: scale(1.2) rotate(90deg);
+        }
+    }
+}
+
+/**
+ * Toast notifications
+ */
+.toast {
+    opacity: 0;
+    
+    &.showing {
+        @include animate-slide-in-right;
+    }
+    
+    &.show {
+        opacity: 1;
+    }
+    
+    &.hide {
+        @include animate-fade-out;
+    }
+}
+
+// ============================================================================
+// Cards
+// ============================================================================
+
+/**
+ * Activity cards with hover effect
+ */
+.activity-card,
+.card {
+    @include transition-all;
+    
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+}
+
+/**
+ * Course cards
+ */
+.coursebox,
+.course-card {
+    @include transition-all;
+    
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+}
+
+// ============================================================================
+// Navigation Items
+// ============================================================================
+
+/**
+ * Navigation links
+ */
+.nav-link {
+    @include transition-color;
+    position: relative;
+    
+    // Underline animation
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: currentColor;
+        @include transition-all;
+        transform: translateX(-50%);
+    }
+    
+    &:hover::after,
+    &:focus::after,
+    &.active::after {
+        width: 100%;
+    }
+}
+
+/**
+ * Breadcrumb navigation
+ */
+.breadcrumb-item {
+    @include transition-color;
+    
+    + .breadcrumb-item::before {
+        @include transition-color;
+    }
+}
+
+// ============================================================================
+// Form Elements
+// ============================================================================
+
+/**
+ * Input fields with focus animation
+ */
+.form-control {
+    @include transition-all;
+    
+    &:focus {
+        transform: scale(1.01);
+        box-shadow: 0 0 0 3px rgba(19, 127, 236, 0.1);
+    }
+}
+
+/**
+ * Checkboxes and radios
+ */
+.form-check-input {
+    @include transition-all;
+    
+    &:checked {
+        @include animate-scale-in($animation-duration-fast);
+    }
+}
+
+/**
+ * File upload dropzone
+ */
+.fileupload-dropzone {
+    @include transition-all;
+    
+    &.dragover {
+        transform: scale(1.02);
+        background-color: rgba(19, 127, 236, 0.05);
+        border-color: rgb(19, 127, 236);
+    }
+}
+
+// ============================================================================
+// Loading States
+// ============================================================================
+
+/**
+ * Loading spinner
+ */
+.spinner-border,
+.spinner-grow {
+    animation-duration: 0.75s;
+}
+
+/**
+ * Loading overlay
+ */
+.loading-overlay {
+    opacity: 0;
+    pointer-events: none;
+    @include transition-opacity;
+    
+    &.active {
+        @include animate-fade-in;
+        pointer-events: all;
+    }
+}
+
+/**
+ * Skeleton loader
+ */
+.skeleton-loader {
+    @include skeleton-loading;
+}
+
+/**
+ * Shimmer effect
+ */
+.shimmer {
+    @include shimmer-loading;
+}
+
+// ============================================================================
+// Badges
+// ============================================================================
+
+/**
+ * Animated status badges
+ */
+.badge {
+    @include transition-all;
+    
+    &.badge-pulse {
+        @include animate-pulse;
+    }
+    
+    &.badge-glow {
+        @include animate-glow;
+    }
+}
+
+/**
+ * Course status badge
+ */
+.ufpel-status-badge {
+    @include transition-all;
+    
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+// ============================================================================
+// Tabs
+// ============================================================================
+
+/**
+ * Tab navigation
+ */
+.nav-tabs {
+    .nav-link {
+        @include transition-all;
+        
+        &.active {
+            @include animate-fade-in($animation-duration-fast);
+        }
+    }
+}
+
+/**
+ * Tab content
+ */
+.tab-content {
+    .tab-pane {
+        &.active {
+            @include animate-fade-in($animation-duration-normal);
+        }
+    }
+}
+
+// ============================================================================
+// Activity Completion
+// ============================================================================
+
+/**
+ * Completion checkmark animation
+ */
+.completion-icon {
+    @include transition-transform;
+    
+    &.complete {
+        @include animate-bounce-in;
+    }
+}
+
+/**
+ * Activity completion toggle
+ */
+.togglecompletion {
+    @include transition-all;
+    
+    &:hover {
+        transform: scale(1.1);
+    }
+    
+    &.complete {
+        .icon {
+            @include animate-scale-in;
+        }
+    }
+}
+
+// ============================================================================
+// Drawer/Sidebar
+// ============================================================================
+
+/**
+ * Drawer slide animation
+ */
+.drawer {
+    @include transition-transform($animation-duration-normal);
+    
+    &.show {
+        transform: translateX(0);
+    }
+    
+    &:not(.show) {
+        transform: translateX(-100%);
+    }
+}
+
+/**
+ * Right drawer
+ */
+.drawer-right {
+    &:not(.show) {
+        transform: translateX(100%);
+    }
+}
+
+// ============================================================================
+// List Items with Stagger Effect
+// ============================================================================
+
+/**
+ * Staggered list animation
+ */
+.list-stagger {
+    > * {
+        @include stagger-animation(ufpel-slide-in-left, $animation-duration-normal, 15, 50ms);
+    }
+}
+
+/**
+ * Course list stagger
+ */
+.course-list {
+    .coursebox {
+        @include stagger-animation(ufpel-fade-in, $animation-duration-normal, 20, 30ms);
+    }
+}
+
+// ============================================================================
+// Icon Animations
+// ============================================================================
+
+/**
+ * Rotating icons (loading, refresh, etc.)
+ */
+.icon-spin {
+    animation: ufpel-rotate-in 1s linear infinite;
+}
+
+/**
+ * Icon hover effects
+ */
+.icon {
+    @include transition-transform;
+    
+    a:hover &,
+    button:hover & {
+        transform: scale(1.1);
+    }
+}
