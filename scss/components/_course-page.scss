@@ -1,0 +1,144 @@
+body.pagelayout-course {
+    .drawers {
+        background: rgb(246 247 248 / 1);
+
+        .main-inner {
+
+            @import "secondary-navigation";
+
+            .secondary-navigation {
+                .navigation {
+                    @include tablet-up {
+                        margin: 0 15px;
+                    }
+                }
+            }
+
+            #user-notifications {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .course-content {
+                .section {
+                    .section-item {
+                        background: #ffffff;
+                        border-color: rgb(226, 232, 240);
+                        box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+                        .sectionname > a {
+                            font-size: 1.125rem;
+                            line-height: 1.75rem;
+                            text-decoration: none;
+                            color: rgb(15 23 42);
+                            font-weight: 700;
+                        }
+
+                        .content {
+                            p {
+                                color: rgb(71 85 105);
+                                font-size: 0.9rem;
+                                line-height: 1.5rem;
+                            }
+
+                            .activity {
+                                //border: 1px solid #eee;
+                                //border-radius: 0.75rem;
+                                //transition: all 0.5s ease;
+                                //margin-top: 0.4rem;
+
+                                border-radius: 0;
+                                transition: all 0.5s ease;
+                                margin-top: 0;
+                                background: #f6f7f8;
+                                margin-left: -1rem;
+                                margin-right: -1rem;
+                                padding: 1rem 1rem 1rem 1rem;
+
+                                +.activity {
+                                    padding: 0 1rem 0.5rem 1rem;
+                                    border-top: 0;
+                                    border-bottom: 0;
+                                }
+
+                                &:first-child {
+                                    margin-top: 0;
+                                    padding-top: 1rem;
+                                    border-top: 1px solid #eee;
+                                }
+
+                                &:last-child {
+                                    margin-bootm: 0;
+                                    padding-bottom: 1rem;
+                                    border-bottom: 1px solid #eee;
+                                }
+
+                                &:hover {
+                                    //background: #f8f9fa;
+                                    //transform: translateY(-2px) scale(1.005);
+                                    //transition: background-color 0.5s ease;
+                                }
+
+                                .activity-item {
+                                    padding: .75rem;
+                                    background: #fff;
+                                    border: solid 1px #eee;
+                                }
+
+                                .activityname a {
+                                    text-decoration: none;
+                                }
+
+                                .activity-dates {
+                                    font-size: 0.75rem;
+                                }
+
+                                .activity-description {
+                                    border-top: 1px dashed #dee2e6;
+                                }
+
+                                &.subsection {
+                                    border: 0;
+                                    border-top: 1px solid #eee;
+                                    padding: .5rem 0 .5rem 0;
+                                    background: #fff;
+
+                                    >.activity-item {
+                                        border-radius: 0;
+                                        border:0;
+                                        padding: .25rem;
+                                    }
+
+                                    .section-item {
+                                        box-shadow: none;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    &.current {
+                        .section-item {
+                            background: #ffffff;
+                            border-color: #76adff;
+                            box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgb(19 127 236 / 0.2), 0 1px 2px 0 rgb(0 0 0 / 0.05), 0 0 #0000;
+
+                            &:before {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    &.hidden {
+                        .section-item {
+                            opacity: .9;
+                            border-style: dashed;
+                            border-width: 2px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

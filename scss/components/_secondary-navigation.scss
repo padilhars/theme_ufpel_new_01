@@ -1,0 +1,83 @@
+.secondary-navigation {
+    .navigation {
+        margin: 0;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / .05);
+        border-radius: 1rem;
+
+        .nav-tabs {
+            border: none;
+            margin: 6px auto;
+
+            @include tablet-up {
+            	margin: 0 auto;
+	            display: flex;
+	            flex-direction: row;
+	            justify-content: space-evenly;
+	            align-content: center;
+	            align-items: center;
+	            height: 100%;
+	        }
+
+            .nav-link {
+                height: 45px;
+                border-radius: 0.5rem;
+
+                &:hover {
+                    outline: 0;
+                    outline: none;
+                    text-decoration: none;
+                    background: rgb(231, 242, 253);
+                }
+
+                &:focus {
+                    outline: 0;
+                    outline: none;
+                    box-shadow: none;
+                }
+
+                &.active {
+                	border-bottom: 0;
+                	background: rgb(19 127 236);
+                    color: #ffffff;
+                }
+            }
+
+            .dropdown-menu {
+                inset: 45px auto auto 0 !important;
+                border-radius: 0.75rem;
+                border: 1px solid rgb(241 245 249 / 1);
+                background-color: rgb(255 255 255 / 1);
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgb(0 0 0 / 0.25);    
+
+                &.show {
+                    @include animate-slide-up;
+                }
+
+                .dropdown-item {
+                    font-size: .875rem;
+                    font-weight: 500;
+                    color: $ufpel-font-color-gray;
+
+                    &:hover {
+                        background-color: #e7f2fd;
+                        color: $ufpel-font-color-blue;
+                    }
+
+                    &:active {
+                        background-color: unset;
+                        color: $ufpel-font-color-blue;
+                        @include animate-scale-in;
+                    }
+                }
+
+                .dropdown-divider {
+                    border-top: 1px solid #eeeeee !important;
+                }
+            }
+        }
+    }
+} 

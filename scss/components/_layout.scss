@@ -21,6 +21,81 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+hr {
+    margin: 1rem 0;
+    color: inherit;
+    border: 0;
+    border-top: 1px #dee2e6 dashed;
+    opacity: 1;
+}
+
+// ============================================================================
+// Page Layout Admin
+// ============================================================================
+body.pagelayout-admin,
+body.pagelayout-standard {
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    #page-wrapper {
+        background: rgb(246 247 248 / 1);
+
+        #page.drawers {
+            background: rgb(246 247 248 / 1);
+            margin-top: 65px;
+
+            .main-inner {
+                background: rgb(246 247 248 / 1);
+                @include content-max-width;
+
+                #page-header {
+                    margin-bottom: 1rem;
+                }
+
+                #page-header h1.h2, #page-header .h2.h1 {
+                    font-weight: 400;
+                    text-transform: uppercase;
+                }
+
+                #page-content {
+                    background: #ffffff;
+                    border: solid 1px rgb(226, 232, 240);
+                    box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+                    padding: 2rem;
+                    border-radius: 1rem;
+
+                    #region-main {
+                        background: rgb(255 255 255);
+
+                        .tab-content {
+                            .tab-pane {
+                                .row {
+                                    h4 {
+                                        @include tablet-up {
+                                            text-align: right;
+                                            padding-right: 3rem;
+                                        }
+                                    }
+                                } 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+@import "secondary-navigation";
+
+}
+
+
+
 // ============================================================================
 // Page Wrapper Background
 // ============================================================================
@@ -29,17 +104,17 @@
  * Global page wrapper background
  * Applies consistent light gray background across all pages
  */
-#page-wrapper {
-    background: rgb(246 247 248 / 1);
-}
+//#page-wrapper {
+//   background: rgb(246 247 248 / 1);
+//}
 
 /**
  * Page element background
  * Ensures consistent background within the main page container
  */
-#page-wrapper #page {
-    background: rgb(246 247 248 / 1);
-}
+//#page-wrapper #page {
+//    background: rgb(246 247 248 / 1);
+//}
 
 /**
  * Main region background
@@ -57,10 +132,10 @@
  * Main content area width adjustments for larger screens
  * Includes custom background color for visual distinction
  */
-#page.drawers .main-inner {
-    background: rgb(246 247 248 / 1);
-    @include content-max-width;
-}
+//#page.drawers .main-inner {
+//    background: rgb(246 247 248 / 1);
+//    @include content-max-width;
+//}
 
 /**
  * Standard page layout content width

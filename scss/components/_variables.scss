@@ -22,6 +22,25 @@
  */
 
 // ============================================================================
+// Bootstrap CSS Variables Override
+// ============================================================================
+
+/**
+ * Override Bootstrap's default body font size
+ * Bootstrap default is 1rem (16px), we're setting to 0.875rem (14px)
+ * 
+ * This variable is used by Bootstrap to set the base font size across
+ * the entire application. It affects:
+ * - Body text
+ * - Form elements
+ * - Buttons
+ * - And all other components that inherit from body
+ */
+:root {
+    --bs-body-font-size: 0.875rem;
+}
+
+// ============================================================================
 // Layout Variables
 // ============================================================================
 
